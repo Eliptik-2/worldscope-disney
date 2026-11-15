@@ -7,8 +7,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.419625,
+    "lon": -81.577985,
+    "geo_source": "https://ropedropnews.com/parks/magic-kingdom/live",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 2,
@@ -18,8 +20,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.41915,
+    "lon": -81.57725,
+    "geo_source": "https://mapcarta.com/W296326395",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 3,
@@ -29,8 +33,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.42063,
+    "lon": -81.58005,
+    "geo_source": "https://mapcarta.com/W1313242613",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 4,
@@ -40,8 +46,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.42031,
+    "lon": -81.58473,
+    "geo_source": "https://mapcarta.com/W324922684",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 5,
@@ -51,8 +59,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.42085,
+    "lon": -81.58291,
+    "geo_source": "https://mapcarta.com/W41831418",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 6,
@@ -62,8 +72,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.41804,
+    "lon": -81.58423,
+    "geo_source": "https://mapcarta.com/N11164112405",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 7,
@@ -80,23 +92,27 @@
     "id": 8,
     "park": "Magic Kingdom",
     "category": "Rides",
-    "name": "Peter Pan\u2019s Flight",
+    "name": "Peter Pan’s Flight",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.42015,
+    "lon": -81.582,
+    "geo_source": "https://mapcarta.com/W296377266",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 9,
     "park": "Magic Kingdom",
     "category": "Rides",
-    "name": "it\u2019s a small world",
+    "name": "it’s a small world",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.4208,
+    "lon": -81.58204,
+    "geo_source": "https://mapcarta.com/W699034483",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 10,
@@ -135,7 +151,7 @@
     "id": 13,
     "park": "Magic Kingdom",
     "category": "Rides",
-    "name": "Buzz Lightyear\u2019s Space Ranger Spin",
+    "name": "Buzz Lightyear’s Space Ranger Spin",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -234,7 +250,7 @@
     "id": 22,
     "park": "Magic Kingdom",
     "category": "Shows",
-    "name": "Mickey\u2019s PhilharMagic",
+    "name": "Mickey’s PhilharMagic",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -366,7 +382,7 @@
     "id": 34,
     "park": "Magic Kingdom",
     "category": "Food",
-    "name": "Cinderella\u2019s Royal Table",
+    "name": "Cinderella’s Royal Table",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -432,7 +448,7 @@
     "id": 40,
     "park": "Magic Kingdom",
     "category": "Food",
-    "name": "Cosmic Ray\u2019s",
+    "name": "Cosmic Ray’s",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -443,7 +459,7 @@
     "id": 41,
     "park": "Magic Kingdom",
     "category": "Food",
-    "name": "Casey\u2019s Corner",
+    "name": "Casey’s Corner",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -476,7 +492,7 @@
     "id": 44,
     "park": "Magic Kingdom",
     "category": "Food",
-    "name": "Gaston\u2019s Tavern",
+    "name": "Gaston’s Tavern",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -557,8 +573,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.37552,
+    "lon": -81.54695,
+    "geo_source": "https://mapcarta.com/W719079634",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 52,
@@ -568,8 +586,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.37286,
+    "lon": -81.54722,
+    "geo_source": "https://mapcarta.com/W295315993",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 53,
@@ -579,14 +599,16 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.37529,
+    "lon": -81.5494,
+    "geo_source": "https://mapcarta.com/W146221550",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 54,
     "park": "EPCOT",
     "category": "Rides",
-    "name": "Soarin\u2019",
+    "name": "Soarin’",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -645,19 +667,23 @@
     "detail": "Norway",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.3708,
+    "lon": -81.54624,
+    "geo_source": "https://mapcarta.com/N4213210754",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 60,
     "park": "EPCOT",
     "category": "Rides",
-    "name": "Remy\u2019s Ratatouille Adventure",
+    "name": "Remy’s Ratatouille Adventure",
     "detail": "France",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.36792,
+    "lon": -81.55286,
+    "geo_source": "https://mapcarta.com/W688994559",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 61,
@@ -817,7 +843,7 @@
     "id": 75,
     "park": "EPCOT",
     "category": "Shops",
-    "name": "Karamell-K\u00fcche",
+    "name": "Karamell-Küche",
     "detail": "Germany",
     "source": "Research handoff document",
     "status": "verify",
@@ -1019,8 +1045,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.36752,
+    "lon": -81.55036,
+    "geo_source": "https://mapcarta.com/W295587734",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 94,
@@ -1228,8 +1256,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35429,
+    "lon": -81.56048,
+    "geo_source": "https://mapcarta.com/W751722737",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 113,
@@ -1239,8 +1269,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35352,
+    "lon": -81.5617,
+    "geo_source": "https://mapcarta.com/W688502132",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 114,
@@ -1250,8 +1282,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35645,
+    "lon": -81.56312,
+    "geo_source": "https://mapcarta.com/W685092736",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 115,
@@ -1261,8 +1295,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35602,
+    "lon": -81.56134,
+    "geo_source": "https://mapcarta.com/W294905178",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 116,
@@ -1283,14 +1319,16 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.36002,
+    "lon": -81.55994,
+    "geo_source": "https://mapcarta.com/W530750421",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 118,
     "park": "Hollywood Studios",
     "category": "Rides",
-    "name": "Rock \u2019n\u2019 Roller Coaster (verify current theme)",
+    "name": "Rock ’n’ Roller Coaster (verify current theme)",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1301,12 +1339,14 @@
     "id": 119,
     "park": "Hollywood Studios",
     "category": "Rides",
-    "name": "Mickey & Minnie\u2019s Runaway Railway",
+    "name": "Mickey & Minnie’s Runaway Railway",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35626,
+    "lon": -81.56045,
+    "geo_source": "https://mapcarta.com/W294898804",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 120,
@@ -1316,8 +1356,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.36121,
+    "lon": -81.55831,
+    "geo_source": "https://mapcarta.com/N2985093314",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 121,
@@ -1367,23 +1409,27 @@
     "id": 125,
     "park": "Hollywood Studios",
     "category": "Shops",
-    "name": "Dok-Ondar\u2019s Den of Antiquities",
+    "name": "Dok-Ondar’s Den of Antiquities",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35415,
+    "lon": -81.56182,
+    "geo_source": "https://mapcarta.com/N6562303385",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 126,
     "park": "Hollywood Studios",
     "category": "Shops",
-    "name": "Savi\u2019s Workshop",
+    "name": "Savi’s Workshop",
     "detail": "custom lightsabers",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35435,
+    "lon": -81.56197,
+    "geo_source": "https://mapcarta.com/N6562303387",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 127,
@@ -1393,8 +1439,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35452,
+    "lon": -81.56204,
+    "geo_source": "https://mapcarta.com/N6562275880",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 128,
@@ -1444,7 +1492,7 @@
     "id": 132,
     "park": "Hollywood Studios",
     "category": "Shops",
-    "name": "Jessie\u2019s Trading Post",
+    "name": "Jessie’s Trading Post",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1455,7 +1503,7 @@
     "id": 133,
     "park": "Hollywood Studios",
     "category": "Shops",
-    "name": "Mickey\u2019s of Hollywood",
+    "name": "Mickey’s of Hollywood",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1510,7 +1558,7 @@
     "id": 138,
     "park": "Hollywood Studios",
     "category": "Food",
-    "name": "Oga\u2019s Cantina",
+    "name": "Oga’s Cantina",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1543,7 +1591,7 @@
     "id": 141,
     "park": "Hollywood Studios",
     "category": "Food",
-    "name": "50\u2019s Prime Time Caf\u00e9",
+    "name": "50’s Prime Time Café",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1587,7 +1635,7 @@
     "id": 145,
     "park": "Hollywood Studios",
     "category": "Food",
-    "name": "Woody\u2019s Lunch Box",
+    "name": "Woody’s Lunch Box",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1620,7 +1668,7 @@
     "id": 148,
     "park": "Hollywood Studios",
     "category": "Alcohol",
-    "name": "Oga\u2019s Cantina",
+    "name": "Oga’s Cantina",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1664,7 +1712,7 @@
     "id": 152,
     "park": "Hollywood Studios",
     "category": "Hidden details",
-    "name": "Aurebesh writing in Galaxy\u2019s Edge",
+    "name": "Aurebesh writing in Galaxy’s Edge",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -1723,19 +1771,23 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35486,
+    "lon": -81.59283,
+    "geo_source": "https://mapcarta.com/N4836297934",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 158,
     "park": "Animal Kingdom",
     "category": "Rides",
-    "name": "Na\u2019vi River Journey",
+    "name": "Na’vi River Journey",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35476,
+    "lon": -81.59219,
+    "geo_source": "https://mapcarta.com/N4836286981",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 159,
@@ -1756,8 +1808,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35973,
+    "lon": -81.59241,
+    "geo_source": "https://mapcarta.com/W43589046",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 161,
@@ -1767,8 +1821,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.35954,
+    "lon": -81.58806,
+    "geo_source": "https://mapcarta.com/W307128260",
+    "geo_precision": "OSM feature point — entrance not verified"
   },
   {
     "id": 162,
@@ -1961,7 +2017,7 @@
     "id": 179,
     "park": "Animal Kingdom",
     "category": "Food",
-    "name": "Satu\u2019li Canteen",
+    "name": "Satu’li Canteen",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2170,7 +2226,7 @@
     "id": 198,
     "park": "Disney Springs",
     "category": "Shops",
-    "name": "Disney\u2019s Pin Traders",
+    "name": "Disney’s Pin Traders",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2181,7 +2237,7 @@
     "id": 199,
     "park": "Disney Springs",
     "category": "Shops",
-    "name": "Disney\u2019s Days of Christmas",
+    "name": "Disney’s Days of Christmas",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2302,7 +2358,7 @@
     "id": 210,
     "park": "Disney Springs",
     "category": "Food",
-    "name": "Chef Art Smith\u2019s Homecomin\u2019",
+    "name": "Chef Art Smith’s Homecomin’",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2401,7 +2457,7 @@
     "id": 219,
     "park": "Disney Springs",
     "category": "Food",
-    "name": "Gideon\u2019s Bakehouse",
+    "name": "Gideon’s Bakehouse",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2412,7 +2468,7 @@
     "id": 220,
     "park": "Disney Springs",
     "category": "Food",
-    "name": "Amorette\u2019s Patisserie",
+    "name": "Amorette’s Patisserie",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2434,7 +2490,7 @@
     "id": 222,
     "park": "Disney Springs",
     "category": "Alcohol",
-    "name": "Jock Lindsey\u2019s Hangar Bar",
+    "name": "Jock Lindsey’s Hangar Bar",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
@@ -2610,7 +2666,7 @@
     "id": 238,
     "park": "BoardWalk",
     "category": "Alcohol",
-    "name": "BoardWalk Joe\u2019s Marvelous Margaritas",
+    "name": "BoardWalk Joe’s Marvelous Margaritas",
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
