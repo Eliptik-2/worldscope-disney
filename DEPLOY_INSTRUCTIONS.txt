@@ -1,0 +1,14 @@
+WORLDSCOPE — GITHUB PAGES SETUP
+1. Create a free account at https://github.com (or sign in).
+2. Click + > New repository. Name it worldscope-disney. Set Public and click Create repository.
+3. Choose 'uploading an existing file'. Upload index.html, data.json, and .nojekyll from this folder. Click Commit changes.
+4. In the repository, click Settings > Pages. Under Build and deployment, set Source to 'Deploy from a branch', Branch to 'main', folder '/ (root)', and Save.
+5. Wait a few minutes, then open https://YOUR-USERNAME.github.io/worldscope-disney/
+6. Share that URL with family. It works on mobile and desktop, without your computer running.
+
+IMPORTANT:
+- The repository is public, so don't upload personal/private information.
+- The map and place search require internet access and rely on external services.
+- Favorites are stored locally in each browser, not synchronized across family devices.
+- To update the website, edit/upload index.html or data.json in GitHub; changes publish to the same URL.
+- All entries need checking against current Disney schedules and maps before treating them as verified.
