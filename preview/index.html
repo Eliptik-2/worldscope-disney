@@ -1,17 +1,20 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080f1e"><title>Worldscope v1.3 — Test Preview</title><meta name="robots" content="noindex,nofollow"><link rel="preconnect" href="https://unpkg.com"><link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080f1e"><title>Worldscope v1.4 — Test Preview</title><meta name="robots" content="noindex,nofollow"><link rel="preconnect" href="https://unpkg.com"><link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"><style>
 :root{--bg:#080f1e;--surface:#111c30;--surface2:#17253b;--line:#293a53;--text:#f2f6fc;--muted:#9eafc7;--cyan:#74e4dc;--gold:#ffd18a;--pink:#eaa5e4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--cyan)}a{color:var(--cyan)}.shell{display:grid;grid-template-columns:258px minmax(0,1fr);min-height:100vh}.sidebar{background:#0c1628;border-right:1px solid var(--line);padding:24px 14px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:23px;font-weight:850;letter-spacing:-1px;margin:0 10px}.brand span{color:var(--cyan)}.small{font-size:12px;color:var(--muted)}.side-caption{font-size:10px;color:var(--muted);letter-spacing:2px;font-weight:800;margin:27px 12px 9px}.navbtn{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#bac8db;padding:12px;border-radius:11px;text-align:left;margin:3px 0}.navbtn:hover,.navbtn.active{background:#20364b;color:#fff}.navbtn.active{box-shadow:inset 3px 0 var(--cyan)}.navbtn span{font-size:18px}.side-footer{padding:14px;margin-top:25px;background:#17273d;border:1px solid #29425d;border-radius:12px}.main{padding:28px 34px 70px;max-width:1500px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:16px}.eyebrow{font-size:11px;font-weight:850;color:var(--cyan);letter-spacing:2px}.top h1{font-size:clamp(25px,4vw,38px);margin:5px 0 8px;line-height:1.12;letter-spacing:-1px}.sub{color:var(--muted);margin:0}.chip{border:1px solid #3c5067;color:#dbe5f2;background:#17263c;padding:7px 11px;border-radius:30px;white-space:nowrap}.hero{background:radial-gradient(circle at 88% 18%,#1d6471 0%,transparent 35%),linear-gradient(115deg,#172a4a,#111d32 65%);border:1px solid #315269;border-radius:20px;padding:25px;margin:23px 0;display:flex;justify-content:space-between;align-items:center;gap:15px}.hero h2{font-size:24px;margin:7px 0}.hero p{color:#c3d0e0;max-width:660px}.btn{background:var(--cyan);color:#06212b;border:0;border-radius:10px;padding:11px 15px;font-weight:800}.btn.secondary{background:#263850;color:#f2f6fc;border:1px solid #40536c}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.stat{background:var(--surface);border:1px solid var(--line);padding:17px;border-radius:15px}.stat b{display:block;font-size:25px}.stat span{color:var(--muted);font-size:12px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}.input{background:#142239;border:1px solid #33455d;color:white;border-radius:10px;padding:11px;min-width:0}.search{flex:1;min-width:200px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 0 12px}.sectionhead h2{font-size:19px;margin:0}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:12px}.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:160px;display:flex;flex-direction:column;gap:9px}.card:hover{border-color:#547b89}.card h3{font-size:15px;margin:0;line-height:1.35}.card p{font-size:12px;color:var(--muted);margin:0}.meta{display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{color:var(--cyan);font-size:10px;font-weight:850;letter-spacing:.6px;text-transform:uppercase}.tag.warn{color:var(--gold)}.card-actions{display:flex;gap:8px;margin-top:auto;align-items:center}.tiny{border:1px solid #3d5067;background:#1c2c43;color:#dce9f4;border-radius:8px;padding:7px 10px;font-size:12px}.tiny.saved{background:#254c49;color:#9ff8dd;border-color:#458d81}.empty{color:var(--muted);padding:25px;border:1px dashed var(--line);border-radius:12px}.mapwrap{height:min(62vh,590px);min-height:350px;position:relative;border:1px solid #3c536d;border-radius:17px;overflow:hidden;background:#132438}.map{width:100%;height:100%}.mapbadge{position:absolute;bottom:12px;left:12px;z-index:2;background:#091522e8;padding:8px 10px;border-radius:9px;font-size:11px;max-width:75%}.mapcontrols{position:absolute;right:10px;top:10px;z-index:2;display:flex;flex-direction:column;gap:6px}.mapcontrols button{background:#11243c;color:#fff;border:1px solid #50637c;border-radius:8px;padding:9px}.event{padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:13px;margin:9px 0}.event strong{font-size:15px}.event p{color:var(--muted);margin:5px 0}.event .date{color:var(--gold);font-size:12px;font-weight:800}.note{padding:13px 16px;background:#1c2939;border-left:3px solid var(--gold);border-radius:7px;color:#e3d8c5;font-size:12px;margin:15px 0}.foot{font-size:12px;color:var(--muted);margin-top:30px}.hidden{display:none!important}.progress{height:6px;background:#2c4058;border-radius:5px;overflow:hidden;margin:10px 0}.progress i{display:block;background:var(--cyan);height:100%;width:0%}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cyan);margin-right:5px}.dot.gold{background:var(--gold)}@media(max-width:800px){.shell{display:block}.sidebar{position:sticky;top:0;z-index:20;height:auto;padding:9px 12px;border-right:0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;overflow:auto}.brand{font-size:17px;white-space:nowrap}.side-caption,.side-footer,.sidebar>.small{display:none}.navbtn{width:auto;white-space:nowrap;padding:8px 11px;font-size:12px;margin:0}.navbtn span{display:none}.main{padding:17px 14px 70px}.top{align-items:flex-start}.top .chip{font-size:10px}.hero{padding:18px;display:block}.hero h2{font-size:20px}.stats{grid-template-columns:repeat(2,1fr)}.mapwrap{height:58vh}.cards{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.card{padding:12px}.toolbar .input{flex:1}}
 .tag.mapped{color:#89e9c4}.precision-info{font-size:12px;color:var(--muted);line-height:1.5}.maplinks{margin-top:9px}.maplinks a{display:inline-flex;align-items:center;text-decoration:none;min-height:38px}.result-card{margin:9px 0;padding:11px;background:var(--surface);border:1px solid var(--line);border-radius:9px}.maphint{border:1px solid #2a6c71;border-radius:10px;padding:11px;margin:12px 0;background:#17323c;color:#d6f7f4}.maphint b{color:#8ce2dd}.mapstatus-error{color:#ffd18a}.count-mapped{display:inline-block;margin-left:7px;color:#89e9c4;font-size:11px}@media(max-width:800px){.mapwrap{min-height:360px}.maplinks{flex-direction:column;align-items:stretch}.maplinks a{text-align:center;justify-content:center}.card-actions{flex-wrap:wrap}.maphint{font-size:12px}}
 
 /* Worldscope v1.3 | Resort-focused map and lightweight navigation */
 .route-chip{border-color:#61714b;color:#ffdba9;background:#343044}.routebox{margin:20px 0;border:1px solid #47617a;border-radius:20px;padding:20px;background:radial-gradient(circle at 0% 0%,#1e4260 0%,transparent 44%),linear-gradient(145deg,#17243c,#10182d 65%);box-shadow:0 12px 50px #0003}.routehead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.routehead h2{font-size:21px;margin:3px 0 6px}.routeflag{color:#ffe1a4;border:1px solid #7c6044;padding:5px 8px;border-radius:12px;font-size:10px;font-weight:800;letter-spacing:.3px}.route-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.route-field{display:flex;flex-direction:column;gap:7px;min-width:0}.route-field>span{color:#c3d3e5;font-size:11px;letter-spacing:1.3px;font-weight:800}.route-field select{width:100%;min-height:48px}.route-to{min-height:48px;border:1px solid #426178;background:#1c3245;border-radius:10px;padding:12px 14px;color:#f7e6be;font-weight:750}.route-actions{margin:12px 0;align-items:center}.route-feedback{padding:13px 14px;border-radius:12px;background:#111f30;color:#bdcddd;border-left:3px solid #85c7d1;font-size:13px;min-height:44px}.route-feedback.warn{border-left-color:#ffd18a;color:#fff0cd}.route-summary{font-size:16px;font-weight:800;color:#b5f5e4;margin:10px 0}.route-steps{margin:4px 0;padding-left:21px;color:#e0eafa}.route-steps li{padding:7px 0;border-bottom:1px solid #ffffff16}.route-external a{display:inline-flex;gap:4px;align-items:center}.mapwrap{height:min(65vh,640px);min-height:410px;border-color:#5e6c8b;box-shadow:0 14px 44px #01051499}.mapwrap::after{content:'';pointer-events:none;position:absolute;inset:0;z-index:1;box-shadow:inset 0 0 48px #070c22cc;border-radius:17px}.mapbadge{z-index:4;max-width:calc(100% - 65px);border:1px solid #577b8d;background:#08172cea;backdrop-filter:blur(10px)}.mapcontrols{z-index:4}.mapcontrols button{font-weight:700;background:#0e1e36ed}.geo-dot:hover{transform:scale(1.4)}.maplibregl-ctrl-logo{opacity:.65}.note{border-left-color:#ab9dea;background:linear-gradient(100deg,#272244,#182740);color:#ece3fc}
 @media(max-width:850px){#map .toolbar>select#mappark{min-width:145px;flex:1}.routebox{padding:14px}.route-fields{grid-template-columns:1fr}.route-actions>*{flex:1;min-width:130px}.mapwrap{height:56vh;min-height:390px}.mapbadge{font-size:10px;bottom:7px;left:7px}.routehead h2{font-size:19px}}
-</style><link rel="manifest" href="manifest.webmanifest"></head><body><div class="shell"><aside class="sidebar"><div class="brand">✦ World<span>scope</span></div><div class="small" style="margin:3px 12px">WDW · NOV–DEC 2026</div><div class="side-caption">YOUR EXPLORER</div><button class="navbtn active" data-view="overview"><span>◈</span> Overview</button><button class="navbtn" data-view="directory"><span>▦</span> Directory</button><button class="navbtn" data-view="map"><span>⌖</span> 3D Map</button><button class="navbtn" data-view="secrets"><span>✧</span> Hidden gems</button><button class="navbtn" data-view="events"><span>✺</span> Holiday events</button><button class="navbtn" data-view="saved"><span>♡</span> My list</button><button class="navbtn" data-view="settings"><span>⚙</span> Manage data</button><div class="side-footer"><b>YOUR HOME BASE</b><div class="small">Disney's BoardWalk · EPCOT area</div><p class="small">Nov 25 – Dec 5, 2026</p></div></aside><main class="main"><header class="top"><div><div class="eyebrow">THE ULTIMATE TRIP COMPANION</div><h1 id="title">Your Disney adventure.</h1><p class="sub" id="subtitle">Everything worth exploring, in one place.</p></div><span class="chip">🧪 v1.3 · TEST PREVIEW</span></header>
+
+.miniature-toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:10px 0 12px;border:1px solid #326078;background:linear-gradient(125deg,#162840,#20354d);padding:10px 12px;border-radius:12px}.miniature-toolbar>span:first-child{font-size:11px;color:#a8e9ef;font-weight:850;letter-spacing:1.3px}.miniature-toolbar select{flex:1;max-width:330px}.miniature-toolbar #modelstatus{font-size:11px;color:#b2c5d6}#routesteps li{margin-bottom:5px}
+@media(max-width:600px){.miniature-toolbar select{min-width:100%;max-width:100%}}
+</style><link rel="manifest" href="manifest.webmanifest"></head><body><div class="shell"><aside class="sidebar"><div class="brand">✦ World<span>scope</span></div><div class="small" style="margin:3px 12px">WDW · NOV–DEC 2026</div><div class="side-caption">YOUR EXPLORER</div><button class="navbtn active" data-view="overview"><span>◈</span> Overview</button><button class="navbtn" data-view="directory"><span>▦</span> Directory</button><button class="navbtn" data-view="map"><span>⌖</span> 3D Map</button><button class="navbtn" data-view="secrets"><span>✧</span> Hidden gems</button><button class="navbtn" data-view="events"><span>✺</span> Holiday events</button><button class="navbtn" data-view="saved"><span>♡</span> My list</button><button class="navbtn" data-view="settings"><span>⚙</span> Manage data</button><div class="side-footer"><b>YOUR HOME BASE</b><div class="small">Disney's BoardWalk · EPCOT area</div><p class="small">Nov 25 – Dec 5, 2026</p></div></aside><main class="main"><header class="top"><div><div class="eyebrow">THE ULTIMATE TRIP COMPANION</div><h1 id="title">Your Disney adventure.</h1><p class="sub" id="subtitle">Everything worth exploring, in one place.</p></div><span class="chip">🧪 v1.4 · TEST PREVIEW</span></header>
 <section id="overview"><div class="hero"><div><div class="eyebrow">11 DAYS · SIX DESTINATIONS</div><h2>Make room for the magic. <span style="color:var(--cyan)">Not the stress.</span></h2><p>Find the shops, rides, food, drinks, holiday experiences, and little secrets that most visitors walk right past.</p><button class="btn" onclick="go('directory')">Explore the directory →</button></div><div style="font-size:70px;opacity:.85">🏰</div></div><div class="stats"><div class="stat"><b id="total">246</b><span>Research entries</span></div><div class="stat"><b>6</b><span>Destinations</span></div><div class="stat"><b id="favcount">0</b><span>Saved favorites</span></div><div class="stat"><b>11</b><span>Trip calendar days</span></div></div><div class="sectionhead"><h2>Explore by destination</h2></div><div class="cards" id="parkcards"></div><div class="sectionhead"><h2>Don't miss this season</h2><button class="tiny" onclick="go('events')">All events →</button></div><div id="eventpreview"></div></section>
 <section id="directory" class="hidden"><div class="toolbar"><input class="input search" id="query" placeholder="Search rides, stores, drinks, places…"><select class="input" id="parkfilter"></select><select class="input" id="catfilter"><option value="">All categories</option></select></div><div class="legend"><span><i class="dot"></i>Saved to your trip</span><span><i class="dot gold"></i>Not yet individually mapped; daily availability unverified</span></div><div class="sectionhead"><h2 id="resultcount">Explore locations</h2><button class="tiny" onclick="exportFavorites()">Export list</button></div><div class="cards" id="directorycards"></div></section>
-<section id="map" class="hidden"><div class="note">✨ <b>WORLD SCOPE / EXPLORE MODE.</b> Tap any location to see its individual pin. The map stays focused on Walt Disney World, and 3D building shapes appear automatically. <b>Walking routes use volunteered OpenStreetMap paths, not Disney’s internal navigation.</b> Verify paths, closures, and entrances in My Disney Experience.</div><div class="toolbar"><select class="input" id="mappark"></select><button class="btn secondary" id="buildingtoggle" onclick="loadBuildings()">◈ Buildings: ON</button><button class="btn secondary" onclick="locateMe()">My location</button></div><div class="mapwrap"><div id="mapcanvas" class="map"></div><div class="mapcontrols"><button id="pitchtoggle" onclick="changePitch()">◆ 3D tilt: ON</button><button onclick="map&&map.zoomIn()">＋</button><button onclick="map&&map.zoomOut()">－</button></div><div class="mapbadge" id="mapstatus">Choose a ride, shop or restaurant to explore · Walking directions are experimental</div></div><p class="small">© OpenStreetMap contributors · Vector basemap and building footprints from OpenFreeMap / OpenStreetMap · Building heights depend on contributed map data · Not a photorealistic Disney model. No indoor routes, ticket gates or temporary closure feeds.</p>
+<section id="map" class="hidden"><div class="note">✨ <b>WORLD SCOPE / EXPLORE MODE.</b> Tap any location to see its individual pin. The map stays focused on Walt Disney World, and 3D building shapes appear automatically. <b>Walking estimates are not Disney navigation. Implausible street-network detours are rejected.</b> Verify paths, closures, and entrances in My Disney Experience.</div><div class="toolbar"><select class="input" id="mappark"></select><button class="btn secondary" id="buildingtoggle" onclick="loadBuildings()">◈ Buildings: ON</button><button class="btn secondary" id="modeltoggle" onclick="toggleLandmarks()">🏰 3D landmarks: ON</button><button class="btn secondary" onclick="locateMe()">My location</button></div><div class="miniature-toolbar"><span>✦ VISIT A 3D LANDMARK</span><select class="input" id="landmarkpick" onchange="jumpLandmark(this.value)"><option value="">Choose a model…</option><option value="castle">Cinderella Castle</option><option value="space">Space Mountain</option><option value="tron">TRON Lightcycle canopy</option><option value="earth">Spaceship Earth</option><option value="tower">Tower of Terror</option><option value="tree">Tree of Life</option><option value="pandora">Pandora rockscape</option></select><span id="modelstatus" role="status">3D models load when the map opens</span></div><div class="mapwrap"><div id="mapcanvas" class="map"></div><div class="mapcontrols"><button id="pitchtoggle" onclick="changePitch()">◆ 3D tilt: ON</button><button onclick="map&&map.zoomIn()">＋</button><button onclick="map&&map.zoomOut()">－</button></div><div class="mapbadge" id="mapstatus">Choose a ride, shop or restaurant to explore · Walking directions are experimental</div></div><p class="small">© OpenStreetMap contributors · Vector basemap and building footprints from OpenFreeMap / OpenStreetMap · Building heights depend on contributed map data · Includes seven original, stylized 3D interpretations of famous landmarks, not accurate licensed Disney ride models or guest-entrance locations. No indoor routes, ticket gates or temporary closure feeds.</p>
 <div class="routebox" id="routepanel" aria-label="Walking directions planner">
-  <div class="routehead"><div><div class="eyebrow">✧ WALK THE MAGIC</div><h2>Walking directions</h2></div><span class="routeflag">BETA · OUTDOOR PATHS</span></div>
-  <p class="small">Pedestrian routing uses mapped public paths. Queue entrances, park admissions, ride exits, closed shortcuts, and Disney transportation are not guaranteed. <b>Not real-time navigation.</b></p>
+  <div class="routehead"><div><div class="eyebrow">✧ WALK THE MAGIC</div><h2>Walking guide</h2></div><span class="routeflag">BETA · CHECK DISTANCES</span></div>
+  <p class="small">For nearby attractions, Worldscope shows a walking-distance estimate and a dashed bearing line, <b>not an actual pathway</b>. For longer walks, routes use mapped public footpaths and reject implausible detours. Always use My Disney Experience to confirm pathways and queues.</p>
   <div class="route-fields">
     <label class="route-field"><span>FROM</span><select id="routestart" class="input" onchange="routeStartChanged()"><option value="boardwalk">🏨 BoardWalk (approximate resort point)</option><option value="gps">📍 My phone's GPS</option><option value="picked">⌖ Point I picked on map</option></select></label>
     <label class="route-field"><span>TO</span><div id="routedestination" class="route-to">Choose a location using a directory Map button.</div></label>
@@ -28,7 +31,7 @@
 <section id="events" class="hidden"><div class="note">Confirmed seasonal dates are sourced from Disney's official 2026 event pages. Check the My Disney Experience app for daily hours, tickets, reservations and cancellations.</div><div id="eventcards"></div></section>
 <section id="saved" class="hidden"><div class="toolbar"><button class="btn" onclick="exportFavorites()">Download favorites (.json)</button><button class="btn secondary" onclick="copyFavorites()">Copy itinerary text</button></div><div class="cards" id="savedcards"></div></section>
 <section id="settings" class="hidden"><div class="sectionhead"><h2>Flexible, editable data</h2></div><p class="sub">Favorites and custom entries are saved in this browser. Export a backup before switching phones or clearing browser data. Core directory entries live in <code>data.json</code>, which you can edit without changing the website.</p><div class="event"><strong>Add a custom discovery</strong><div class="toolbar"><input class="input search" id="customname" placeholder="Place or discovery name"><select class="input" id="custompark"></select><select class="input" id="customcat"><option>Shops</option><option>Food</option><option>Alcohol</option><option>Rides</option><option>Hidden details</option><option>Experiences</option></select><button class="btn" onclick="addCustom()">Add</button></div></div><div class="toolbar"><button class="btn secondary" onclick="downloadData()">Download full data</button><button class="btn secondary" onclick="exportFavorites()">Backup favorites</button><label class="btn secondary" style="cursor:pointer">Import favorites<input type="file" accept=".json" onchange="importFavorites(event)" hidden></label></div><div class="event"><strong>Research links</strong><p><a target="_blank" href="https://disneyworld.disney.go.com/shops/">Official shops</a> · <a target="_blank" href="https://disneyworld.disney.go.com/dining/">Official dining</a> · <a target="_blank" href="https://disneyworld.disney.go.com/park-maps/">Official park map</a> · <a target="_blank" href="https://disneyworld.disney.go.com/events-tours/holidays/">Official holiday guide</a></p></div><p class="small">Research baseline: November 14, 2026. This is not a live Disney API integration. Names, opening hours, menus and operating status can change.</p></section>
-<footer class="foot">Worldscope v1.3 TEST PREVIEW · Built for personal vacation planning · Independently researched; not affiliated with or endorsed by Walt Disney World.</footer></main></div><script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script><script>
+<footer class="foot">Worldscope v1.3 · Built for personal vacation planning · Independently researched; not affiliated with or endorsed by Walt Disney World.</footer></main></div><script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script><script>
 const PARKS=['Magic Kingdom','EPCOT','Hollywood Studios','Animal Kingdom','Disney Springs','BoardWalk'];const COORD={'Magic Kingdom':[-81.5812,28.4187],'EPCOT':[-81.5494,28.3747],'Hollywood Studios':[-81.5594,28.3575],'Animal Kingdom':[-81.5907,28.3553],'Disney Springs':[-81.5229,28.3716],'BoardWalk':[-81.5561,28.3674]};const icons={'Magic Kingdom':'🏰','EPCOT':'🌐','Hollywood Studios':'🎬','Animal Kingdom':'🌿','Disney Springs':'🛍️','BoardWalk':'🏨'};const events=[
 {name:'EPCOT Festival of the Holidays',date:'Nov 27 – Dec 30, 2026',park:'EPCOT',text:'Holiday Kitchens, storytellers, Cookie Stroll, Candlelight Processional and Olaf scavenger hunt.',url:'https://disneyworld.disney.go.com/events-tours/epcot/holiday-festival/'},
 {name:"Mickey’s Very Merry Christmas Party",date:'During trip: Nov 25, 27, 29; Dec 1, 3, 4',park:'Magic Kingdom',text:'Separate ticket required. 7 PM–midnight. Daytime guests should check early park closure.',url:'https://disneyworld.disney.go.com/events-tours/magic-kingdom/mickeys-very-merry-christmas-party/'},
@@ -41,7 +44,7 @@ const PARKS=['Magic Kingdom','EPCOT','Hollywood Studios','Animal Kingdom','Disne
 {name:'Disney Springs Christmas Tree Stroll',date:'Holiday season; verify current dates',park:'Disney Springs',text:'Look for themed Christmas trees around the shopping district.',url:'https://disneyworld.disney.go.com/events-tours/holidays/'}];
 let items=[],map=null,pitch3d=true,markers=[],placeMarker=null;function readStored(name,fallback){try{const v=JSON.parse(localStorage.getItem(name));return Array.isArray(v)?v:fallback}catch{return fallback}}let favorites=new Set(readStored('worldscope-preview-favorites',[]).map(String));let customs=readStored('worldscope-preview-customs',[]).filter(x=>x&&typeof x==='object'&&typeof x.name==='string'&&PARKS.includes(x.park));const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const key=e=>String(e.id);function save(){try{localStorage.setItem('worldscope-preview-favorites',JSON.stringify([...favorites]));localStorage.setItem('worldscope-preview-customs',JSON.stringify(customs))}catch(e){console.warn('Browser storage unavailable',e);showToast('Changes may not persist: browser storage is unavailable')}}function go(view){document.querySelectorAll('main>section').forEach(x=>x.classList.toggle('hidden',x.id!==view));document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.view===view));const titles={overview:['Your Disney adventure.','Everything worth exploring, in one place.'],directory:['The full directory.','Rides, shops, restaurants, bars and more.'],map:['Explore the resort.','Park-focused 3D map and walking route planner.'],secrets:['Look a little closer.','Easter eggs and small details worth finding.'],events:['Holiday season, unlocked.','Your trip overlaps with some special celebrations.'],saved:['Your personal shortlist.','Keep the trip flexible, not overwhelming.'],settings:['Make it your own.','Update your guide as you discover new things.']};$('title').textContent=titles[view][0];$('subtitle').textContent=titles[view][1];if(view==='map')setTimeout(initMap,90);if(view==='directory')renderDirectory();if(view==='secrets')renderSecrets();if(view==='saved')renderSaved();window.scrollTo({top:0,behavior:'auto'})}document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.view));function selectOptions(id,all=false){$(id).innerHTML=(all?'<option value="">All destinations</option>':'')+PARKS.map(p=>`<option value="${p}">${p}</option>`).join('')}['parkfilter','mappark','secretpark','custompark'].forEach(id=>selectOptions(id,id==='parkfilter'||id==='secretpark'));$('mappark').value='EPCOT';$('custompark').value='EPCOT';function cats(){let cs=[...new Set(items.map(i=>i.category))].sort();$('catfilter').innerHTML='<option value="">All categories</option>'+cs.map(c=>`<option>${esc(c)}</option>`).join('')}function validCoords(e){return e&&Number.isFinite(e.lat)&&Number.isFinite(e.lon)&&e.lat>28.32&&e.lat<28.46&&e.lon>-81.65&&e.lon<-81.47}
 const WORLD_BOUNDS=[[-81.625,28.332],[-81.493,28.443]];
-let routeDestination=null,routeOrigin=null,routeOriginMarker=null,routePickingStart=false,routeToken=0,routeAbort=null,routeGeo=null,show3dBuildings=true,buildingLayers=[],gpsCoords=null;
+let routeDestination=null,routeOrigin=null,routeOriginMarker=null,routePickingStart=false,routeToken=0,routeAbort=null,routeGeo=null,show3dBuildings=true,buildingLayers=[],gpsCoords=null; let showLandmarks=true,landmarksModule=null,landmarksLoading=null;
 function withinResort(lon,lat){return lon>=WORLD_BOUNDS[0][0]&&lon<=WORLD_BOUNDS[1][0]&&lat>=WORLD_BOUNDS[0][1]&&lat<=WORLD_BOUNDS[1][1]}
 function haversine(a,b){const rad=Math.PI/180;const dlat=(b.lat-a.lat)*rad,dlon=(b.lon-a.lon)*rad;const t=Math.sin(dlat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dlon/2)**2;return 12742000*Math.atan2(Math.sqrt(t),Math.sqrt(1-t))}
 function routeMessage(s,warn=false){$('routefeedback').textContent=s;$('routefeedback').classList.toggle('warn',warn)}
@@ -69,14 +72,52 @@ function initMap(){
   map=new maplibregl.Map({container:'mapcanvas',style:'https://tiles.openfreemap.org/styles/liberty',center:COORD.EPCOT,zoom:13.5,minZoom:12.3,maxZoom:20,pitch:58,bearing:-20,maxPitch:75,maxBounds:WORLD_BOUNDS,antialias:true});
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'bottom-right');
   map.on('load',()=>{
-   enableBuildings();
+   enableBuildings();void installLandmarks();
    PARKS.forEach(p=>{let el=document.createElement('button');el.type='button';el.textContent=icons[p];el.setAttribute('aria-label',p+' park reference');el.title=p+' (park center reference)';el.style.cssText='border:2px solid #ffdc97;background:#192b46;border-radius:50%;font-size:20px;width:40px;height:40px;box-shadow:0 2px 12px #0009';const mk=new maplibregl.Marker({element:el}).setLngLat(COORD[p]).setPopup(new maplibregl.Popup().setHTML(`<b>${esc(p)}</b><br>Park reference point only`)).addTo(map);markers.push(mk)});
    items.filter(validCoords).forEach(e=>{const el=document.createElement('button');el.type='button';el.className='geo-dot';el.title=e.name+' — mapped feature, entrance not verified';el.setAttribute('aria-label','Go to '+e.name);el.style.cssText='width:14px;height:14px;background:#8aede4;border:2px solid #173c4a;border-radius:50%;box-shadow:0 1px 8px #000b';el.addEventListener('click',ev=>{ev.stopPropagation();findEntry(key(e))});knownMarkers.push(new maplibregl.Marker({element:el}).setLngLat([e.lon,e.lat]).addTo(map))});
    if(routeGeo)renderRouteLine(routeGeo);
   });
-  map.on('click',e=>{if(!routePickingStart)return;const {lat,lng}=e.lngLat;if(!withinResort(lng,lat)){routeMessage('Starting point must be inside Walt Disney World.',true);return}routeOrigin={lat,lon:lng,name:'Chosen point on map'};$('routestart').value='picked';routePickingStart=false;$('routepick').textContent='⌖ Tap map to set start';if(routeOriginMarker)routeOriginMarker.remove();routeOriginMarker=new maplibregl.Marker({color:'#71e1bd'}).setLngLat([lng,lat]).addTo(map);clearRoute(false);routeMessage('Starting point selected. Tap “Find walking route.”')});
+  map.on('click',e=>{if(!routePickingStart)return;const {lat,lng}=e.lngLat;if(!withinResort(lng,lat)){routeMessage('Starting point must be inside Walt Disney World.',true);return}routeOrigin={lat,lon:lng,name:'Chosen point on map',park:$('mappark').value};$('routestart').value='picked';routePickingStart=false;$('routepick').textContent='⌖ Tap map to set start';if(routeOriginMarker)routeOriginMarker.remove();routeOriginMarker=new maplibregl.Marker({color:'#71e1bd'}).setLngLat([lng,lat]).addTo(map);clearRoute(false);routeMessage('Starting point selected. Tap “Find walking route.”')});
   map.on('error',e=>{console.warn('Map render/tiles warning',e.error);mapStatus('Some map tiles could not load. Location and external direction links are still available.')});
  }catch(err){map=null;mapStatus('The 3D map could not initialize. Use Google Maps links below.');console.error(err)}
+}
+// Non-photorealistic models are in their own source file for easier iterative development.
+const landmarkCoords={castle:[-81.5812,28.41950],space:[-81.57725,28.41915],tron:[-81.577985,28.419625],earth:[-81.5494,28.37529],tower:[-81.55994,28.36002],tree:[-81.5904,28.3574],pandora:[-81.59283,28.35486]};
+async function installLandmarks(){
+ if(!map||!map.isStyleLoaded?.()||!showLandmarks)return;
+ if(map.getLayer('worldscope-landmarks'))return;
+ if(landmarksLoading)return landmarksLoading;
+ const text=$('modelstatus');
+ if(text)text.textContent='Building miniatures…';
+ landmarksLoading=(async()=>{
+  try{
+   const module=landmarksModule||await new Promise((resolve,reject)=>{
+    if(window.WorldscopeModels)return resolve(window.WorldscopeModels);
+    const timeout=setTimeout(()=>reject(Error('3D assets could not load within 10 seconds')),10000);
+    window.addEventListener('worldscope-models-ready',()=>{clearTimeout(timeout);resolve(window.WorldscopeModels)},{once:true});
+   });
+   landmarksModule=module;
+   if(showLandmarks&&map&&map.isStyleLoaded?.()){
+    const output=module.installLandmarks(map,maplibregl);
+    if(text)text.textContent=output.count+' stylized 3D landmarks active';
+   }
+  }catch(e){console.warn('3D landmark module unavailable',e);if(text)text.textContent='3D miniatures unavailable; the 2D map and buildings still work';}
+  finally{landmarksLoading=null}
+ })();
+ return landmarksLoading;
+}
+function toggleLandmarks(){
+ showLandmarks=!showLandmarks;
+ $('modeltoggle').textContent=showLandmarks?'🏰 3D landmarks: ON':'🏰 3D landmarks: OFF';
+ if(!map)return;
+ if(!showLandmarks){if(map.getLayer('worldscope-landmarks'))map.removeLayer('worldscope-landmarks');$('modelstatus').textContent='Landmark models hidden';}
+ else void installLandmarks();
+}
+function jumpLandmark(id){
+ const point=landmarkCoords[id];if(!point)return;
+ go('map');initMap();if(map)map.flyTo({center:point,zoom:18.1,pitch:67,bearing:-25,duration:1050});
+ if(!showLandmarks)toggleLandmarks();
+ mapStatus('3D miniature landmark · Artwork is illustrative, not a precise building model.');
 }
 function enableBuildings(){
  if(!map||!map.isStyleLoaded?.())return false;
@@ -111,13 +152,42 @@ function setRouteDestination(e,lon,lat,source){const changed=!routeDestination||
 function initRouteOriginOptions(){const sel=$('routestart');const old=sel.value;const head=sel.querySelectorAll('option:not([data-place])');sel.querySelectorAll('option[data-place]').forEach(x=>x.remove());for(const e of items.filter(validCoords)){const op=document.createElement('option');op.dataset.place='true';op.value='place:'+key(e);op.textContent=e.park+' · '+e.name;sel.append(op)}if([...sel.options].some(o=>o.value===old))sel.value=old}
 function routeStartChanged(){if($('routestart').value!=='picked'&&routeOriginMarker){routeOriginMarker.remove();routeOriginMarker=null}clearRoute(false);routePickingStart=false;$('routepick').textContent='⌖ Tap map to set start';if($('routestart').value==='gps')routeMessage('Your phone will ask to share its location when you calculate a route.');else if($('routestart').value==='picked'&&!routeOrigin)routeMessage('Tap “Tap map to set start,” then choose a location on the map.',true);else routeMessage('Starting point updated. Tap “Find walking route.”');updateExternalLinks()}
 function pickRouteStart(){initMap();go('map');routePickingStart=true;$('routepick').textContent='✦ Tap a point on the map…';routeMessage('Tap the map to set a starting point inside Walt Disney World. Choose a guest-accessible walkway, not a building.',false);$('mapcanvas').scrollIntoView({behavior:'smooth',block:'center'})}
-function getRouteOrigin(){const v=$('routestart').value;if(v==='boardwalk')return Promise.resolve({lon:COORD.BoardWalk[0],lat:COORD.BoardWalk[1],name:'BoardWalk reference point'});if(v==='gps')return acquireGPS();if(v==='picked'){if(routeOrigin)return Promise.resolve(routeOrigin);return Promise.reject(Error('First tap “Tap map to set start,” then tap a location on the map.'))}if(v.startsWith('place:')){const e=items.find(x=>key(x)===v.slice(6));if(e&&validCoords(e))return Promise.resolve({lat:e.lat,lon:e.lon,name:e.name});}return Promise.reject(Error('Please choose a starting point.'))}
+function getRouteOrigin(){const v=$('routestart').value;if(v==='boardwalk')return Promise.resolve({lon:COORD.BoardWalk[0],lat:COORD.BoardWalk[1],name:'BoardWalk reference point',park:'BoardWalk'});if(v==='gps')return acquireGPS();if(v==='picked'){if(routeOrigin)return Promise.resolve({...routeOrigin,park:$('mappark').value});return Promise.reject(Error('First tap “Tap map to set start,” then tap a location on the map.'))}if(v.startsWith('place:')){const e=items.find(x=>key(x)===v.slice(6));if(e&&validCoords(e))return Promise.resolve({lat:e.lat,lon:e.lon,name:e.name,park:e.park});}return Promise.reject(Error('Please choose a starting point.'))}
 function getPreviewOrigin(){const v=$('routestart').value;if(v==='boardwalk')return{lon:COORD.BoardWalk[0],lat:COORD.BoardWalk[1]};if(v==='gps')return gpsCoords;if(v==='picked')return routeOrigin;if(v.startsWith('place:')){const e=items.find(x=>key(x)===v.slice(6));return e&&validCoords(e)?{lon:e.lon,lat:e.lat}:null}return null}
 function googleWalkingLink(from,to){const params=new URLSearchParams({api:'1',origin:from.lat+','+from.lon,destination:to.lat+','+to.lon,travelmode:'walking'});return 'https://www.google.com/maps/dir/?'+params.toString()}
-function updateExternalLinks(){const wrap=$('routeexternallinks');const d=routeDestination;if(!d){wrap.innerHTML='';return}const from=getPreviewOrigin();const google=from?googleWalkingLink(from,d):'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(d.name+' '+d.park+' Disney World');wrap.innerHTML='<a class="tiny" target="_blank" rel="noopener noreferrer" href="'+esc(google)+'">↗ '+(from?'Google Maps walking directions':'Find destination on Google Maps')+'</a><a class="tiny" target="_blank" rel="noopener noreferrer" href="https://disneyworld.disney.go.com/park-maps/">↗ Disney official map</a>'}
-function clearRoute(full=false){routeToken++;if(routeAbort){routeAbort.abort();routeAbort=null}routeGeo=null;if(map){for(const l of ['worldscope-route-line','worldscope-route-glow'])if(map.getLayer(l))map.removeLayer(l);if(map.getSource('worldscope-route'))map.removeSource('worldscope-route')}if($('routesummary'))$('routesummary').textContent='';if($('routesteps'))$('routesteps').innerHTML='';if(full){routePickingStart=false;$('routepick').textContent='⌖ Tap map to set start';routeMessage('Route cleared. Select your destination and starting point.')}updateExternalLinks()}
+function updateExternalLinks(){const wrap=$('routeexternallinks');const d=routeDestination;if(!d){wrap.innerHTML='';return}
+ const from=getPreviewOrigin();const nearSamePark=from&&haversine(from,d)<600&&items.some(e=>validCoords(e)&&haversine(e,from)<15&&e.park===d.park);
+ const google=nearSamePark?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(d.name+' '+d.park+' Disney World'):from?googleWalkingLink(from,d):'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(d.name+' '+d.park+' Disney World');
+ wrap.innerHTML='<a class="tiny" target="_blank" rel="noopener noreferrer" href="'+esc(google)+'">↗ '+(nearSamePark?'View destination on Google Maps (street directions may be wrong)':from?'Google Maps walking (check for detours)':'Find destination on Google Maps')+'</a><a class="tiny" target="_blank" rel="noopener noreferrer" href="https://disneyworld.disney.go.com/park-maps/">↗ Disney official map</a>'}
+function clearRoute(full=false){routeToken++;if(routeAbort){routeAbort.abort();routeAbort=null}routeGeo=null;if(map){for(const l of ['worldscope-route-line','worldscope-route-glow'])if(map.getLayer(l))map.removeLayer(l);if(map.getSource('worldscope-route'))map.removeSource('worldscope-route');clearProximity()}if($('routesummary'))$('routesummary').textContent='';if($('routesteps'))$('routesteps').innerHTML='';if(full){routePickingStart=false;$('routepick').textContent='⌖ Tap map to set start';routeMessage('Route cleared. Select your destination and starting point.')}updateExternalLinks()}
 function decodePolyline6(shape){if(typeof shape!=='string'||shape.length>350000)throw Error('Route path format not supported');let index=0,lat=0,lon=0;const coords=[];function value(){let result=0,shift=0,b;do{if(index>=shape.length||shift>35)throw Error('Invalid encoded route');b=shape.charCodeAt(index++)-63;result|=(b&31)<<shift;shift+=5}while(b>=32);return result&1?~(result>>1):result>>1}while(index<shape.length){lat+=value();lon+=value();coords.push([lon/1e6,lat/1e6]);if(coords.length>50000)throw Error('Route contains too many points')}return coords}
 function renderRouteLine(coords){if(!map||!map.isStyleLoaded?.()||!Array.isArray(coords)||coords.length<2)return;const fc={type:'Feature',geometry:{type:'LineString',coordinates:coords},properties:{}};if(map.getSource('worldscope-route')){map.getSource('worldscope-route').setData(fc)}else{map.addSource('worldscope-route',{type:'geojson',data:fc});map.addLayer({id:'worldscope-route-glow',type:'line',source:'worldscope-route',paint:{'line-color':'#fbd4a3','line-width':13,'line-opacity':.22,'line-blur':4}});map.addLayer({id:'worldscope-route-line',type:'line',source:'worldscope-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#ffe49a','line-width':5,'line-opacity':.98}})}const longs=coords.map(c=>c[0]),lats=coords.map(c=>c[1]);map.fitBounds([[Math.min(...longs),Math.min(...lats)],[Math.max(...longs),Math.max(...lats)]],{padding:65,maxZoom:18.5,duration:750,pitch:0})}
+function proximityEstimate(start,dest){
+ const distance=haversine(start,dest);
+ const sharedPark=!!start.park&&start.park===dest.park;
+ // Nearby attraction buildings can be mapped *inside* their ride envelope; do not pretend
+ // a street engine knows the guest-accessible entrance or queue start.
+ return sharedPark&&distance<=400?{distance,walkMeters:Math.max(130,distance*1.5),minutes:Math.max(2,Math.ceil(Math.max(130,distance*1.5)/75))}:null;
+}
+function renderProximity(start,dest,reason='nearby'){
+ const coords=[[start.lon,start.lat],[dest.lon,dest.lat]];
+ routeGeo=null;
+ if(map&&map.isStyleLoaded?.()){
+  const sourceId='worldscope-nearby';
+  const geo={type:'Feature',geometry:{type:'LineString',coordinates:coords},properties:{}};
+  if(map.getSource(sourceId))map.getSource(sourceId).setData(geo);
+  else{map.addSource(sourceId,{type:'geojson',data:geo});map.addLayer({id:'worldscope-nearby-line',type:'line',source:sourceId,layout:{'line-cap':'round'},paint:{'line-color':'#d9b3ff','line-width':4,'line-dasharray':[2,2]}})}
+  map.fitBounds([[Math.min(start.lon,dest.lon),Math.min(start.lat,dest.lat)],[Math.max(start.lon,dest.lon),Math.max(start.lat,dest.lat)]],{padding:85,maxZoom:18.5,duration:550});
+ }
+}
+function clearProximity(){if(!map)return;if(map.getLayer('worldscope-nearby-line'))map.removeLayer('worldscope-nearby-line');if(map.getSource('worldscope-nearby'))map.removeSource('worldscope-nearby')}
+function presentProximity(start,dest,assessment,reason){
+ renderProximity(start,dest,reason);
+ const lower=Math.max(2,assessment.minutes-1),upper=Math.max(5,assessment.minutes+2);
+ $('routesummary').textContent=`≈ ${lower}–${upper} min nearby walking estimate · NOT turn-by-turn`;
+ $('routesteps').innerHTML='<li>The dashed purple line shows the general direction, <b>not the guest walkway</b>.</li><li>Follow posted park paths; locate the correct ride queue entrance.</li>';
+ routeMessage('Nearby attractions: '+reason+'. Distance is approximate and may differ from the guest entrance. General street directions may incorrectly leave the park.');
+}
 async function planRoute(){
  const dest=routeDestination;if(!dest){routeMessage('First choose a ride, shop or restaurant in the directory to route to.',true);return}
  const token=++routeToken;if(routeAbort){routeAbort.abort();routeAbort=null}routeMessage('Checking starting point…');$('routesummary').textContent='';$('routesteps').innerHTML='';
@@ -125,7 +195,7 @@ async function planRoute(){
   const start=await getRouteOrigin();if(token!==routeToken)return;
   if(!withinResort(start.lon,start.lat)){routeMessage('Your starting point is outside Walt Disney World. Select BoardWalk, a mapped ride, or a point on the resort map instead.',true);return}
   if(haversine(start,dest)<20){routeMessage('Your selected start and destination are already extremely close.');return}
-  updateExternalLinks();routeMessage('Requesting a pedestrian route using OpenStreetMap walking paths…');
+  updateExternalLinks();const nearby=proximityEstimate(start,dest);if(nearby){presentProximity(start,dest,nearby,'close together in '+dest.park);return;} routeMessage('Requesting a pedestrian route using OpenStreetMap walking paths…');
   const controller=new AbortController();routeAbort=controller;const timer=setTimeout(()=>controller.abort(),14000);
   try{
    const request={locations:[{lat:start.lat,lon:start.lon},{lat:dest.lat,lon:dest.lon}],costing:'pedestrian',units:'kilometers',language:'en-US'};
@@ -138,16 +208,127 @@ async function planRoute(){
    if(coords.length<2||coords.some(c=>!withinResort(c[0],c[1])))throw Error('Route would leave the resort map area. Use the official Disney transportation map.');
    const km=Number(trip.summary.length);const minutes=Math.max(1,Math.ceil(Number(trip.summary.time)/60));
    if(!Number.isFinite(minutes)||km<=0||km>25)throw Error('Route is implausible or incomplete; use the official Disney map.');
-   routeGeo=coords;renderRouteLine(coords);
+   const direct=haversine(start,dest);if(start.park&&start.park===dest.park&&direct>20&&km*1000>Math.max(600,direct*3.3)) {const approx={distance:direct,walkMeters:direct*1.6,minutes:Math.max(2,Math.ceil(direct*1.6/75))};presentProximity(start,dest,approx,'street routing proposed an unreasonable detour');return;}
+   clearProximity();routeGeo=coords;renderRouteLine(coords);
    $('routesummary').textContent=minutes+' min estimated walk · '+(km*.621371).toFixed(2)+' miles';
    const steps=trip.legs.flatMap(l=>l.maneuvers||[]).slice(0,35);
    $('routesteps').innerHTML=steps.map(m=>'<li>'+esc(m.instruction||'Continue along the walking path')+'</li>').join('');
    let caution=km>4?' This is a long walk; check Disney buses, boats, or Skyliner first.':'';
-   routeMessage('Walking path shown. Exact queue entrances and closures are NOT verified; use the Disney app to confirm your approach.'+caution);
+   routeMessage('Experimental walking path shown. Exact queue entrances and closures are NOT verified; use the Disney app to confirm your approach.'+caution);
   }finally{clearTimeout(timer)}
- }catch(e){if(token!==routeToken)return;routeMessage('Cannot draw a verified walking route: '+(e.name==='AbortError'?'routing service timed out':e.message)+'. Use the Google Maps walking link or Disney map below.',true);console.warn('Walking route unavailable',e)}finally{if(token===routeToken)routeAbort=null}
+ }catch(e){if(token!==routeToken)return;routeMessage('Could not validate a pedestrian route: '+(e.name==='AbortError'?'routing service timed out':e.message)+'. Check the Disney official map; Google Maps may also show road detours.',true);console.warn('Walking route unavailable',e)}finally{if(token===routeToken)routeAbort=null}
 }
 function download(name,content,type='application/json'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}function exportFavorites(){download('disney-favorites.json',JSON.stringify({saved:[...favorites],customs},null,2))}async function copyFavorites(){let t=items.filter(i=>favorites.has(key(i))).map(i=>`${i.park}: ${i.name}`).join('\n')||'No saved items';try{if(!navigator.clipboard?.writeText)throw Error('No clipboard');await navigator.clipboard.writeText(t);showToast('Copied your list')}catch{download('disney-favorites.txt',t,'text/plain');showToast('Downloaded your list instead')}}function downloadData(){download('disney-directory.json',JSON.stringify(items,null,2))}function addCustom(){let name=$('customname').value.trim();if(!name)return;let e={id:'custom-'+(crypto.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2)),park:$('custompark').value,category:$('customcat').value,name,detail:'Added by you',status:'custom',source:'User',lat:null,lon:null};customs.push(e);items.push(e);initRouteOriginOptions();$('customname').value='';save();cats();renderOverview();alert('Added. Find it in the directory.')}function importFavorites(event){let file=event.target.files?.[0];if(!file)return;file.text().then(t=>{let obj=JSON.parse(t);if(!Array.isArray(obj.saved))throw Error('Invalid file');favorites=new Set(obj.saved.map(String));if(Array.isArray(obj.customs)){customs=[...new Map(obj.customs.filter(x=>x&&typeof x.name==='string'&&PARKS.includes(x.park)).map(x=>[String(x.id),x])).values()];items=baseItems.concat(customs)}save();cats();renderOverview();renderDirectory();renderSecrets();renderSaved();alert('Imported successfully')}).catch(()=>alert('Invalid backup file'))}let baseItems=[];async function start(){try{let r=await fetch('data.json',{cache:'no-cache'});if(!r.ok)throw Error('missing data');let data=await r.json();if(!Array.isArray(data))throw Error('invalid data');baseItems=data.filter(x=>x&&typeof x.name==='string'&&PARKS.includes(x.park));customs=[...new Map(customs.map(x=>[String(x.id),x])).values()];items=baseItems.concat(customs);initRouteOriginOptions();cats();renderOverview();renderDirectory();renderSecrets();renderSaved()}catch(e){$('parkcards').innerHTML='<div class="empty">Directory unavailable. Check your connection, verify data.json is beside index.html, then refresh.</div>';console.error(e)}}function showToast(message){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#20364b;color:white;padding:12px 18px;border-radius:12px;z-index:1000;box-shadow:0 5px 25px #0009';document.body.append(t)}t.textContent=message;clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.remove(),3300)}
 window.addEventListener('unhandledrejection',e=>{console.warn('Worldscope async error',e.reason)});
 start();
+</script><script type="module">
+/** Worldscope v1.4: Lightweight, original stylized landmark meshes.
+ * NOT Disney-provided models; coordinates mark map features, not entrances.
+ * Shared MapLibre WebGL custom layer using Three.js. No image textures or GLB downloads.
+ */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+
+const LANDMARKS = [
+  {id:'castle',name:'Cinderella Castle',park:'Magic Kingdom',at:[-81.5812,28.41950],kind:'castle'},
+  {id:'space',name:'Space Mountain',park:'Magic Kingdom',at:[-81.57725,28.41915],kind:'space'},
+  {id:'tron',name:'TRON canopy',park:'Magic Kingdom',at:[-81.577985,28.419625],kind:'tron'},
+  {id:'earth',name:'Spaceship Earth',park:'EPCOT',at:[-81.5494,28.37529],kind:'earth'},
+  {id:'tower',name:'Tower of Terror',park:'Hollywood Studios',at:[-81.55994,28.36002],kind:'tower'},
+  {id:'tree',name:'Tree of Life',park:'Animal Kingdom',at:[-81.5904,28.3574],kind:'tree'},
+  {id:'pandora',name:'Pandora floating rockscape',park:'Animal Kingdom',at:[-81.59283,28.35486],kind:'pandora'}
+];
+
+const mat=(color,extra={})=>new THREE.MeshLambertMaterial({color,...extra});
+function shape(g,geo,color,position=[0,0,0],extra={}) {
+  const o=new THREE.Mesh(geo,mat(color,extra));o.position.set(...position);o.castShadow=false;o.receiveShadow=false;g.add(o);return o;
+}
+const cube=(g,w,h,d,color,x,y,z)=>shape(g,new THREE.BoxGeometry(w,h,d),color,[x,y,z]);
+const cone=(g,r,h,color,x,y,z,n=9)=>shape(g,new THREE.ConeGeometry(r,h,n),color,[x,y,z]);
+const cyl=(g,r1,r2,h,color,x,y,z,n=12)=>shape(g,new THREE.CylinderGeometry(r1,r2,h,n),color,[x,y,z]);
+const orb=(g,r,color,x,y,z,detail=1)=>shape(g,new THREE.IcosahedronGeometry(r,detail),color,[x,y,z]);
+function makeCastle(g){
+  cube(g,33,20,27,'#d6d7e5',0,10,0);cube(g,13,24,12,'#f0e6ee',0,30,0);
+  for(const [x,z,h] of [[-14,-9,30],[14,-9,32],[-14,9,34],[14,9,31],[0,-3,48]]){
+    cyl(g,4,4.4,h*.60,'#f0dfe9',x,h*.30,z,8);cone(g,6,12,'#547fc2',x,h*.60+6,z,8);
+    cyl(g,.35,.35,3.2,'#f9d9a9',x,h*.60+13.5,z,6);
+  }
+  for(const x of [-10,10])cube(g,5,13,5,'#ebe4ee',x,24,0);
+  cube(g,7,11,.6,'#49395f',0,7,-13.8);
+}
+function makeSpace(g){
+  cyl(g,30,32,8,'#eceef0',0,4,0,16);cone(g,31,31,'#f4f4f5',0,24,0,16);
+  cyl(g,1.5,1.5,36,'#d1d9e3',0,32,0,8);
+  for(let i=0;i<12;i++){
+    const a=i/12*Math.PI*2,x=Math.cos(a)*25,z=Math.sin(a)*25;
+    cone(g,5,18,'#edf4f7',x,16,z,7);
+  }
+}
+function makeTron(g){
+  cube(g,47,3,34,'#263a58',0,1.5,0);
+  const dome=shape(g,new THREE.SphereGeometry(31,24,12,0,Math.PI*2,0,Math.PI*.52),'#ecf8fb',[0,15,0],{transparent:true,opacity:.69,side:THREE.DoubleSide});dome.scale.set(1.15,.49,.75);
+  for(let i=0;i<5;i++){
+    const z=(i-2)*7;
+    const pts=[];for(let j=0;j<=20;j++){let t=j/20;pts.push(new THREE.Vector3((t-.5)*69,8+12*Math.sin(t*Math.PI),z))}
+    const o=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),28,.65,5,false),new THREE.MeshBasicMaterial({color:'#58fcff'}));g.add(o);
+  }
+  cube(g,53,1,2,'#40e6f3',0,3.5,-17);
+}
+function makeEarth(g){
+  const sphere=shape(g,new THREE.IcosahedronGeometry(25,3),'#c8d4de',[0,37,0],{flatShading:true});
+  const wire=new THREE.LineSegments(new THREE.EdgesGeometry(sphere.geometry,18),new THREE.LineBasicMaterial({color:0x819eaf,transparent:true,opacity:.62}));wire.position.copy(sphere.position);g.add(wire);
+  for(let i=0;i<4;i++){const a=i*Math.PI/2;cyl(g,3,3,13,'#8d9fab',Math.cos(a)*15,7,Math.sin(a)*15,8)}
+}
+function makeTower(g){
+  cube(g,32,36,22,'#d5b6a7',0,18,0);cube(g,21,17,18,'#b9867f',-5,44,0);
+  cube(g,12,19,17,'#dfb9a9',8,52,0);cube(g,17,3,19,'#4d424b',8,63,0);
+  for(let floor=0;floor<7;floor++)for(let i=0;i<4;i++){
+    cube(g,2,3,.35,'#5d4c5a',-12+i*7,6+floor*5,-11.3)
+  }
+  for(const x of [-14,14])cube(g,3,28,2,'#9c726e',x,20,-10);
+}
+function makeTree(g){
+  cyl(g,7,11,25,'#75563c',0,12,0,10);
+  for(const [x,y,z,r] of [[0,36,0,18],[-14,31,0,12],[14,32,0,12],[4,35,13,13],[-4,37,-13,13],[0,45,0,12]])orb(g,r,'#428b57',x,y,z,1);
+}
+function makePandora(g){
+  for(const [x,z,scale] of [[-13,-8,1],[15,7,.7],[2,-2,.9]]){
+    const rock=orb(g,13*scale,'#6e756f',x,25*scale+12,z,1);rock.scale.y=.9;
+    cone(g,7*scale,15*scale,'#64776d',x,12,z,7);
+    for(let i=0;i<4;i++)cyl(g,.35,.35,17*scale,'#4ba86c',x+(i-1.5)*3,20*scale+1,z+5,5)
+  }
+}
+const BUILDERS={castle:makeCastle,space:makeSpace,tron:makeTron,earth:makeEarth,tower:makeTower,tree:makeTree,pandora:makePandora};
+function installLandmarks(map,maplibregl){
+  if(map.getLayer('worldscope-landmarks'))return {count:LANDMARKS.length,landmarks:LANDMARKS};
+  const origin=maplibregl.MercatorCoordinate.fromLngLat([-81.563,28.387],0);
+  const scale=origin.meterInMercatorCoordinateUnits();
+  const scene=new THREE.Scene();scene.add(new THREE.AmbientLight(0xffffff,1.1));
+  const sunlight=new THREE.DirectionalLight(0xffefcb,1.6);sunlight.position.set(-100,180,-130);scene.add(sunlight);
+  for(const spec of LANDMARKS){
+    const group=new THREE.Group();BUILDERS[spec.kind](group);
+    const point=maplibregl.MercatorCoordinate.fromLngLat(spec.at,0);
+    group.position.set((point.x-origin.x)/scale,0,(point.y-origin.y)/scale);
+    scene.add(group);
+  }
+  const custom={
+    id:'worldscope-landmarks',type:'custom',renderingMode:'3d',
+    onAdd(mapInstance,gl){
+      this.camera=new THREE.Camera();this.renderer=new THREE.WebGLRenderer({canvas:mapInstance.getCanvas(),context:gl,antialias:true,alpha:true});this.renderer.autoClear=false;
+    },
+    render(gl,matrix){
+      const base=new THREE.Matrix4().makeTranslation(origin.x,origin.y,origin.z)
+        .scale(new THREE.Vector3(scale,-scale,scale))
+        .multiply(new THREE.Matrix4().makeRotationX(Math.PI/2));
+      this.camera.projectionMatrix=new THREE.Matrix4().fromArray(matrix).multiply(base);
+      this.renderer.resetState();this.renderer.render(scene,this.camera);
+    },
+    onRemove(){try{scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)o.material.dispose()});}catch(e){console.warn(e)}}
+  };
+  map.addLayer(custom);
+  return {count:LANDMARKS.length,landmarks:LANDMARKS};
+}
+const landmarkCatalog=LANDMARKS;
+window.WorldscopeModels={installLandmarks,landmarkCatalog};
+window.dispatchEvent(new Event('worldscope-models-ready'));
+
 </script></body></html>
