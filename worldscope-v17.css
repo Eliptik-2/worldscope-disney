@@ -1,0 +1,37 @@
+/* Worldscope 1.7 destination picker + local-notes preview */
+.worldscope-dest-picker{display:flex;flex-direction:column;gap:7px;margin:8px 0}
+.worldscope-dest-picker .input{width:100%;min-width:0;min-height:44px}
+.worldscope-dest-picker #worldscope-destination{max-width:100%}
+.worldscope-dest-picker .small{line-height:1.35;color:#aec5d6}
+.route-field:has(.worldscope-dest-picker){min-width:210px}
+.worldscope-notes-wrap{max-width:850px;padding:2px 0 50px}
+.worldscope-notes-wrap h2{margin-top:12px}
+.worldscope-notes-wrap .small{display:block;color:#bcd1df;margin:9px 0}
+.worldscope-notes-wrap label{font-weight:750;margin-top:16px!important}
+.worldscope-notes-wrap .input{display:block;width:100%;min-height:44px}
+.worldscope-notes-wrap textarea.input{min-height:120px;resize:vertical;line-height:1.6;font:inherit}
+.worldscope-note-identity{padding:12px 14px;background:#1b2d42;border:1px solid #3c536c;border-radius:12px;margin:14px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.worldscope-note-card{background:#101f34;border:1px solid #2f4b62;border-radius:13px;padding:13px 15px;margin:10px 0;overflow-wrap:anywhere}
+.worldscope-note-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.worldscope-note-head strong{color:#8ce6d5}
+.worldscope-note-head span,.worldscope-note-place{font-size:11px;color:#adc2d4}
+.worldscope-note-card p{line-height:1.65;white-space:pre-wrap;margin:8px 0}
+.worldscope-note-place{display:block;margin-top:5px;color:#f2c985}
+#worldscope-name-dialog{background:#0e2035;color:#f1f6fc;border:1px solid #62889a;border-radius:18px;padding:24px;max-width:410px;width:calc(100% - 30px);box-shadow:0 25px 85px #000b}
+#worldscope-name-dialog::backdrop{background:#050b19bd;backdrop-filter:blur(3px)}
+.worldscope-name-form{display:flex;flex-direction:column;gap:12px}
+.worldscope-name-form h2{font-size:23px;margin:0}
+.worldscope-name-form p,.worldscope-name-form small{color:#bed1de;margin:0}
+.worldscope-name-form label{font-weight:750}
+.worldscope-name-form input{width:100%}
+.worldscope-name-form .toolbar{margin:3px 0}
+.worldscope-name-form button{min-height:44px}
+#worldscope-user-error{color:#ffbd99}
+.map-modes{flex-wrap:wrap}
+@media(max-width:800px){
+ .worldscope-dest-picker .input{font-size:14px}
+ .worldscope-dest-picker #worldscope-destination{font-size:13px}
+ body.worldscope-immersive #routepanel .route-fields{display:flex;flex-direction:column}
+ body.worldscope-immersive #routepanel{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+ body.worldscope-immersive .map-modes{max-width:calc(100vw - 16px);left:8px}
+}
