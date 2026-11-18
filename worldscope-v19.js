@@ -6,7 +6,7 @@
 const byId=id=>document.getElementById(id);
 const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const USGS='https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}';
-let attachedMap=null,sceneMode='hd',lastMode='hd',created=false;
+let attachedMap=null,sceneMode='hd',lastMode='hd',created=false,initial3dAdjusted=false;
 const ids={hd:'worldscope-v19-hd',satellite:'worldscope-v19-usgs'};
 const attr={hd:'Aerial imagery © Esri, Maxar and imagery contributors; capture dates vary',satellite:'Aerial imagery © USGS / The National Map'};
 const modes=[['hd','✦ Aerial + Labels'],['color','◈ Color Atlas'],['satellite','◉ USGS']];
@@ -99,7 +99,7 @@ function attachMap(){
  if(mapReady())applyLayers();
 }
 const oldInit=window.initMap;
-if(typeof oldInit==='function')window.initMap=function(){oldInit();attachMap()};
+if(typeof oldInit==='function')window.initMap=function(){oldInit();attachMap();if(typeof map!=='undefined'&&map){try{map.easeTo({pitch:0,bearing:0,duration:0})}catch{}}};
 window.setMapMode=changeMode;
 const oldToggle=window.worldscopeToggleBuildings;
 if(typeof oldToggle==='function')window.worldscopeToggleBuildings=function(){
@@ -168,6 +168,7 @@ function decoratePins(){
  });
 }
 function ready(){
+ if(!initial3dAdjusted){initial3dAdjusted=true;if(typeof oldToggle==='function')try{oldToggle()}catch(e){console.warn('3D default',e)}}
  makeModePicker();addSceneUi();addRoutingHelp();
  if(typeof mapMode!=='undefined')mapMode=sceneMode;
  if(typeof map!=='undefined'&&map){attachMap();if(mapReady())applyLayers()}
