@@ -26,7 +26,7 @@ function environment(fetcher){
  };
  const window={showTransitPlan(){},clearRoute(){},initMap(){},renderRouteLine(){},showTransferNeeded(){},planRoute(){},maplibregl:{Marker,Popup}};
  const context={window,document,map,maplibregl:{Marker,Popup},fetch:fetcher,AbortController,
-  setTimeout:()=>1,clearTimeout(){},console,COORD:{'Magic Kingdom':[-81.5812,28.4187]},
+  setTimeout:fn=>{fn();return 1},clearTimeout(){},console,COORD:{'Magic Kingdom':[-81.5812,28.4187]},
   decodePolyline6:shape=>shape==='road'?[[-81.5561,28.3674],[-81.565,28.39],[-81.57876,28.41574]]:[[-81.57876,28.41574],[-81.5802,28.417],[-81.5807,28.4205]]};
  vm.createContext(context);vm.runInContext(source,context,{filename:'worldscope-v18.js'});
  return{map,window,handlers,get sources(){return sources},get layers(){return layers},get markers(){return markers},clearStyle(){sources={};layers={}},emit:evt=>handlers[evt]?.forEach(fn=>fn())};
