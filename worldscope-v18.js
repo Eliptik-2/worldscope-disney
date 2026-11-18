@@ -184,8 +184,7 @@ async function renderTransfer(start,dest,plan){
   drawPins();itineraryCard();mapBounds();return;
  }
  trip.kind='bus';
- trip.points=[point('BoardWalk resort',from,'Resort starting area, not the bus bay.','🏨'),
-  point('BoardWalk bus stop',BOARDWALK,BOARDWALK.description,'🚌'),
+ trip.points=[point('BoardWalk bus stop',BOARDWALK,BOARDWALK.description,'🚌'),
   point(alight.name,alight,alight.description,'🚌','station-centroid'),
   point(dest.name,end,'Mapped attraction location, not a verified ride entrance.','🎯')];
  trip.message='Checking route geometry. Bus bay number and departure time are not live.';
