@@ -17,6 +17,8 @@ jobs:
         run: |
           node --check map-explore.js
           node --check worldscope-v17.js
+          node --check worldscope-v18.js
+          node --test tests/worldscope-v18.test.cjs
       - name: Check HTML inline scripts, directory and wiring
         run: |
           python3 - <<'PY'
