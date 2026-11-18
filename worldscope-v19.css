@@ -1,0 +1,46 @@
+/* Worldscope v1.9: resort atlas visuals, high-contrast routes and scenic map controls */
+#map>.note{border-left:3px solid #e9c17e;background:linear-gradient(110deg,#172d43,#182a39)}
+#map .mapwrap{background:#102334;border:1px solid #496876;box-shadow:0 12px 44px #0005,inset 0 0 0 2px #b8ddca12}
+#map .mapwrap:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:17px;box-shadow:inset 0 0 48px #0912256b;z-index:1}
+#map .map-modes{background:linear-gradient(140deg,#0d273cf5,#142d3fe9);border:1px solid #9abca9af;box-shadow:0 8px 34px #021322a8,0 0 0 1px #fff1;padding:6px;gap:4px;max-width:calc(100% - 24px);z-index:8}
+#map .map-modes button{font-family:system-ui,sans-serif;letter-spacing:.1px;font-weight:800;padding:9px 11px;transition:background .15s,transform .15s;color:#dfe9e4;border-radius:10px}
+#map .map-modes button:hover{background:#42747a75;transform:translateY(-1px)}
+#map .map-modes button.selected{background:linear-gradient(130deg,#f7d28e,#e5b970);border-color:#ffe2af;color:#26344b;box-shadow:0 3px 13px #0007}
+#map .map-modes button:focus-visible{outline:3px solid white;outline-offset:2px}
+.worldscope-scene{position:absolute;left:13px;bottom:70px;z-index:4;max-width:min(300px,65%);padding:13px 16px;background:linear-gradient(140deg,#0c263add,#173947e9);border:1px solid #dec48d8a;border-radius:13px;backdrop-filter:blur(14px);box-shadow:0 8px 30px #0007;pointer-events:none}
+.worldscope-scene-brow{font-size:9px;letter-spacing:2px;font-weight:900;color:#f5cb87}
+.worldscope-scene strong{display:block;font:700 21px/1.2 Georgia,'Times New Roman',serif;letter-spacing:-.4px;color:#fff9ef;margin:4px 0}
+.worldscope-scene small{display:block;font-size:11px;color:#c4e1e4}
+.worldscope-route-legend{position:absolute;right:10px;bottom:75px;z-index:4;display:flex;gap:6px;flex-wrap:wrap;max-width:min(55%,320px);justify-content:flex-end;pointer-events:none}
+.worldscope-route-legend span{border:1px solid #c7d4c477;border-radius:99px;padding:5px 9px;background:#102a3add;color:#e9f8f8;font-size:10px;font-weight:750;white-space:nowrap;backdrop-filter:blur(8px)}
+.worldscope-route-legend span:nth-child(1){border-left:3px solid #ffda7c}
+.worldscope-route-legend span:nth-child(2){border-left:3px solid #64c6ff}
+#map .mapbadge{border:1px solid #6f8e9c85;background:#091c2fe9;box-shadow:0 4px 20px #0007}
+#map .mapcontrols button{border:1px solid #b1c4bb7b;box-shadow:0 2px 10px #0005;backdrop-filter:blur(7px)}
+#mapcanvas .geo-dot{width:22px!important;height:22px!important;border:3px solid #f9e1ab!important;background:radial-gradient(circle at 40% 35%,#fff8de,#53d6c0 59%,#19738a)!important;border-radius:50%!important;box-shadow:0 2px 0 #063146,0 4px 17px #03375a9e,0 0 0 4px #79cebd35!important;transition:transform .15s}
+#mapcanvas .geo-dot:hover,#mapcanvas .geo-dot:focus-visible{transform:scale(1.25);outline:2px solid #ffe8ad;outline-offset:4px}
+.worldscope-routing-help{margin:12px 0;border-radius:11px;padding:11px 13px;background:#142a3a;border:1px solid #496778;color:#c6dce2;font-size:12px;line-height:1.5}
+.worldscope-routing-help strong{display:block;color:#eacb9e;font-size:13px}
+.worldscope-routing-help p{margin:4px 0 6px}
+.worldscope-routing-help a{color:#a0f2e1;font-weight:700}
+.worldscope-routing-help.needs-review{border-color:#ddab75;box-shadow:inset 3px 0 0 #eac17d}
+.journey-map-status{background:linear-gradient(135deg,#102e48,#19374b,#152e39);border-color:#78c6ba}
+.worldscope-journey-pin{box-shadow:0 3px 15px #001928,0 0 0 6px #19354945!important}
+#map .mode-credit{background:#0a2537dc;color:#e5e8d9;backdrop-filter:blur(8px)}
+body.worldscope-immersive #map .mapwrap:after{border-radius:0;box-shadow:inset 0 0 24px #060a1780}
+body.worldscope-immersive .worldscope-scene{bottom:calc(env(safe-area-inset-bottom,0px) + 83px)}
+body.worldscope-immersive .worldscope-route-legend{bottom:calc(env(safe-area-inset-bottom,0px) + 82px)}
+@media(max-width:760px){
+ #map .map-modes{gap:2px;padding:4px}
+ #map .map-modes button{padding:8px 7px;font-size:10px;white-space:normal;line-height:1.2;min-width:69px}
+ .worldscope-scene{bottom:65px;left:9px;padding:9px 11px;max-width:58%}
+ .worldscope-scene strong{font-size:16px}
+ .worldscope-scene-brow{font-size:8px;letter-spacing:1.2px}
+ .worldscope-route-legend{bottom:68px;right:7px;max-width:40%}
+ .worldscope-route-legend span{font-size:9px;padding:4px 6px}
+ .worldscope-route-legend span:nth-child(3){display:none}
+ body.worldscope-immersive .worldscope-scene{bottom:calc(env(safe-area-inset-bottom,0px) + 80px);max-width:55%}
+ body.worldscope-immersive .worldscope-route-legend{bottom:calc(env(safe-area-inset-bottom,0px) + 83px);max-width:42%}
+}
+@media(max-width:380px){#map .map-modes button{min-width:0;font-size:10px;padding:7px 6px}.worldscope-scene small{display:none}}
+@media(prefers-reduced-motion:reduce){#map .map-modes button,#mapcanvas .geo-dot{transition:none}}
