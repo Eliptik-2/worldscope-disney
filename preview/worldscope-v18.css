@@ -1,0 +1,12 @@
+/* Worldscope v1.8: route-leg and transportation overlays */
+.worldscope-journey-pin{position:relative;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:3px solid #f8fbff;color:#10293d;font:900 15px/1 system-ui,sans-serif;box-shadow:0 3px 13px #000b;cursor:pointer}
+.worldscope-journey-pin:focus-visible{outline:3px solid #ffe2a9;outline-offset:3px}
+.journey-map-status{border:1px solid #3b7790;background:linear-gradient(135deg,#13283e,#142e3a);border-radius:14px;padding:14px;margin:16px 0;color:#e7f7ff}
+.journey-map-status:empty{display:none}
+.journey-map-status strong{display:block;font-size:15px;margin-bottom:10px}
+.journey-stop-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:7px}
+.journey-stop-chips button{background:#1b3d55;border:1px solid #527f97;border-radius:10px;padding:9px 10px;color:#f5fbff;font-size:12px;font-weight:700;min-height:44px;text-align:left;cursor:pointer}
+.journey-stop-chips button:focus-visible{outline:2px solid #ffe4a7}
+.journey-legend{color:#bcd6e5;font-size:12px;line-height:1.65}
+.journey-map-status>.btn{min-height:44px}
+@media(max-width:800px){.journey-stop-chips{grid-template-columns:1fr}.journey-map-status{padding:12px;margin:10px 0}body.worldscope-immersive .journey-map-status .btn{width:100%}}
