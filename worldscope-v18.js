@@ -112,6 +112,7 @@ function ensureHooks(){
  hookedMap=map;
  map.on('style.load',()=>{setTimeout(()=>{trip.lines.forEach(drawLine);if(trip.points.length&&!pins.length)drawPins()},0)});
  map.on('load',()=>{trip.lines.forEach(drawLine);if(trip.points.length&&!pins.length)drawPins()});
+ map.on('idle',()=>{if(trip.lines.length&&trip.lines.some(l=>!map.getLayer('worldscope-v18-'+l.type+'-line')))trip.lines.forEach(drawLine)});
 }
 const originalInit=window.initMap;
 if(typeof originalInit==='function')window.initMap=function(){originalInit();ensureHooks()};
