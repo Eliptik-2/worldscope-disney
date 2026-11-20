@@ -23,6 +23,10 @@ jobs:
           node --check worldscope-v21.js
           node --check worldscope-v22.js
           node --check worldscope-v22-directions.js
+          node --check worldscope-v23-models.js
+          node --check worldscope-v23-directions.js
+          node --check worldscope-v23-ui.js
+          node --test tests/worldscope-v23.test.cjs
           node --test tests/worldscope-v21.test.cjs
           node --test tests/worldscope-v22.test.cjs
           node --test tests/worldscope-v18.test.cjs
