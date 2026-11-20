@@ -20,7 +20,7 @@
   if(window.WorldscopeV22?.refreshPins)window.WorldscopeV22.refreshPins();
  }
  function setMapView(colored3d){
-  if(window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
+  if(typeof map!=='undefined'&&map&&window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
   if(window.WorldscopeV22?.toggle)window.WorldscopeV22.toggle(!!colored3d);
   if(!colored3d && typeof map!=='undefined'&&map?.easeTo)try{map.easeTo({pitch:0,bearing:0,duration:350})}catch{}
   document.body.classList.toggle('ws23-three-d',!!colored3d);
@@ -40,7 +40,7 @@
   const legacy=$('worldscope-v21-toggle');if(legacy)legacy.style.display='none';
   document.body.classList.add('ws23-atlas');
   // Other scripts initially use HD aerial. Apply without replacing the map style.
-  if(window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
+  if(typeof map!=='undefined'&&map&&window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
   setMapView(false);
  }
  function addCloseDirections(){
@@ -77,7 +77,7 @@
   if(typeof map==='undefined'||!map||map===mapAttached)return;
   mapAttached=map;map.on('click',onMapClick);
  }
- const init=window.initMap;if(typeof init==='function')window.initMap=function(){init();attachMap()};
+ const init=window.initMap;if(typeof init==='function')window.initMap=function(){init();attachMap();if(window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color')};
  function addPinUi(){
   const panel=$('routepanel');if(!panel||$('ws23-place-marker'))return;
   const group=document.createElement('section');group.id='ws23-places';group.className='ws23-places';
