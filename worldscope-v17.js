@@ -48,7 +48,7 @@ function addPicker(){
  const park=element('select',{id:'worldscope-destination-park',className:'input','aria-label':'Filter destinations by park'});
  park.add(new Option('All six destinations',''));
  parks.forEach(p=>park.add(new Option(p,p)));
- const search=element('input',{id:'worldscope-destination-search',type:'search',className:'input',placeholder:'Search 246 places…','aria-label':'Search destinations'});
+ const search=element('input',{id:'worldscope-destination-search',type:'search',className:'input',placeholder:'Search all destinations…','aria-label':'Search destinations'});
  const sel=element('select',{id:'worldscope-destination',className:'input','aria-label':'Choose where to go'});
  const count=element('span',{id:'worldscope-destination-count',className:'small'},'Loading destinations…');
  const wrap=element('div',{className:'worldscope-dest-picker'});
