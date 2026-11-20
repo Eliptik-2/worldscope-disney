@@ -276,8 +276,10 @@
     "detail": "Main Street",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.41739,
+    "lon": -81.58103,
+    "locationConfidence": "venue vicinity (guest entrance unverified)",
+    "locationSource": "https://mapcarta.com/N1307107795"
   },
   {
     "id": 25,
@@ -1080,8 +1082,10 @@
     "detail": "",
     "source": "Research handoff document",
     "status": "verify",
-    "lat": null,
-    "lon": null
+    "lat": 28.36889,
+    "lon": -81.55255,
+    "locationConfidence": "venue vicinity (guest entrance unverified)",
+    "locationSource": "https://aroundus.com/p/5480993-les-chefs-de-france"
   },
   {
     "id": 97,
@@ -2760,5 +2764,31 @@
     "status": "verify",
     "lat": null,
     "lon": null
+  },
+  {
+    "id": 247,
+    "park": "Magic Kingdom",
+    "category": "Food",
+    "name": "Main Street Bakery",
+    "detail": "Main Street, U.S.A. Starbucks / bakery",
+    "source": "Sourced approximate coordinates",
+    "status": "verify",
+    "lat": 28.417666666666666,
+    "lon": -81.58105,
+    "locationConfidence": "venue vicinity; guest entrance unverified",
+    "locationSource": "https://www.waymarking.com/waymarks/WM11CNE_Main_Street_Bakery_Lake_Buena_Vista_FL"
+  },
+  {
+    "id": 248,
+    "park": "Magic Kingdom",
+    "category": "Shops",
+    "name": "Crystal Arts",
+    "detail": "Main Street, U.S.A. gift and glasswork shop",
+    "source": "OpenStreetMap node via Mapcarta",
+    "status": "verify",
+    "lat": 28.41764,
+    "lon": -81.58102,
+    "locationConfidence": "mapped shop point; guest entrance unverified",
+    "locationSource": "https://mapcarta.com/N3015878585"
   }
 ]
