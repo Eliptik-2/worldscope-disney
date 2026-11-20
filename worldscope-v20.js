@@ -85,7 +85,7 @@ function buildShape(T,cfg){
   // 165-ft-ish sphere diameter with raised support, approximate landmark geometry.
   sph(T,group,silver,0,29.7,0,25.15,72);
   const facet=new T.IcosahedronGeometry(25.2,3);
-  const wire=new T.LineSegments(new T.EdgesGeometry(facet,18),new T.LineBasicMaterial({color:0xf5faff,transparent:true,opacity:.35}));
+  const wire=new T.LineSegments(new T.EdgesGeometry(facet,1),new T.LineBasicMaterial({color:0xf5faff,transparent:true,opacity:.35}));
   wire.position.set(0,29.7,0);group.add(wire);
   for(let i=0;i<6;i++){
    const a=i*Math.PI/3;
