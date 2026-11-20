@@ -20,6 +20,8 @@ jobs:
           node --check worldscope-v18.js
           node --check worldscope-v19.js
           node --check worldscope-v20.js
+          node --check worldscope-v21.js
+          node --test tests/worldscope-v21.test.cjs
           node --test tests/worldscope-v18.test.cjs
           node --test tests/worldscope-v19.test.cjs
           node --test tests/worldscope-v20.test.cjs
