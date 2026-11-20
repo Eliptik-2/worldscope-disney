@@ -1,0 +1,14 @@
+/* Worldscope v2.1: compact landmark controls; native pins stay geo-anchored */
+.worldscope-v21-tools{position:absolute;left:10px;top:116px;z-index:10;display:flex;align-items:center;flex-wrap:wrap;gap:6px;max-width:min(460px,calc(100% - 98px));padding:7px;background:linear-gradient(140deg,#0b2539ed,#183b4ad9);border:1px solid #a2c4b8a6;border-radius:13px;box-shadow:0 8px 27px #0008;backdrop-filter:blur(13px)}
+.worldscope-v21-tools button,.worldscope-v21-tools select{font:750 12px/1.3 system-ui,sans-serif;color:#f8f2e2;background:#174154;border:1px solid #7198a2;border-radius:9px;min-height:39px;padding:7px 10px}
+.worldscope-v21-tools select{max-width:230px;min-width:130px;flex:1;text-overflow:ellipsis}
+.worldscope-v21-tools button{cursor:pointer}.worldscope-v21-tools button[aria-pressed="true"]{background:#c79b5f;color:#10283e;border-color:#ffdfac}
+.worldscope-v21-tools button:focus-visible,.worldscope-v21-tools select:focus-visible{outline:3px solid #fff1b7;outline-offset:2px}
+.worldscope-v21-tools small{font:500 10px/1.4 system-ui,sans-serif;width:100%;color:#bde1dc}
+body.worldscope-immersive .worldscope-v21-tools{top:calc(env(safe-area-inset-top,0px) + 127px);left:8px;max-width:calc(100% - 78px)}
+@media(max-width:760px){.worldscope-v21-tools{top:110px;max-width:calc(100% - 70px);padding:5px;gap:4px}
+.worldscope-v21-tools button,.worldscope-v21-tools select{font-size:11px;padding:6px;min-height:38px}
+.worldscope-v21-tools select{max-width:185px;min-width:100px}
+body.worldscope-immersive .worldscope-v21-tools{top:calc(env(safe-area-inset-top,0px) + 122px);max-width:calc(100% - 72px)}
+body.worldscope-immersive #map .mapcontrols{top:calc(env(safe-area-inset-top,0px) + 130px)}}
+@media(max-width:390px){.worldscope-v21-tools{max-width:calc(100% - 65px)}.worldscope-v21-tools small{display:none}}
