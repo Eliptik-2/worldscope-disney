@@ -122,7 +122,7 @@ function validRoute(json,start,dest){
  if(coords.length<2||coords.length>25000)return null;
  if(coords.some(c=>!Array.isArray(c)||!c.every(Number.isFinite)||!withinResort(c[0],c[1])))return null;
  const direct=distanceMeters(start,dest),meters=pathLength(coords);
- if(meters<direct*.68||meters>Math.max(700,direct*3.25)||meters>15000)return null;
+ if(meters<direct*.68||meters>Math.max(700,direct*2.7)||meters>15000)return null;
  if(distanceMeters(start,{lon:coords[0][0],lat:coords[0][1]})>190)return null;
  const end=coords[coords.length-1];
  if(distanceMeters(dest,{lon:end[0],lat:end[1]})>190)return null;
