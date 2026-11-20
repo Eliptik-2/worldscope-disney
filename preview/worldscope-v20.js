@@ -10,7 +10,19 @@ const pinLayer=NS+'-pins';
 const labelLayer=NS+'-labels';
 const parkLayer=NS+'-parks';
 const modelLayer=NS+'-models';
-let boundMap=null,threeLayer=null,modelActive=false,renderError=false,renderedPlaces=0;
+let boundMap=null,threeLayer=null,modelActive=false,renderError=false,renderedPlaces=0,threePromise=null;
+function loadThreeOnDemand(){
+ if(window.THREE)return Promise.resolve(window.THREE);
+ if(threePromise)return threePromise;
+ threePromise=new Promise((resolve,reject)=>{
+  if(!document.createElement||!document.head?.appendChild){reject(Error('3D script loader not available'));return}
+  const script=document.createElement('script');script.src='https://unpkg.com/three@0.148.0/build/three.min.js';script.async=true;
+  script.onload=()=>window.THREE?resolve(window.THREE):reject(Error('3D library loaded without renderer'));
+  script.onerror=()=>reject(Error('3D library could not be downloaded'));
+  document.head.appendChild(script);
+ });
+ return threePromise;
+}
 const catalog=[
  {id:'earth',name:'Spaceship Earth',park:'EPCOT',lon:-81.5494,lat:28.37529,kind:'sphere'},
  {id:'castle',name:'Cinderella Castle',park:'Magic Kingdom',lon:-81.5812,lat:28.4195,kind:'castle'},
@@ -202,7 +214,11 @@ function toggleModels(on){
  if(b){b.textContent=modelActive?'✦ 3D Landmarks: ON':'✧ 3D Landmarks: OFF';b.setAttribute('aria-pressed',String(modelActive))}
  if(typeof map!=='undefined'&&map){
   if(!modelActive&&map.getLayer(modelLayer)){try{map.removeLayer(modelLayer)}catch(e){console.warn(e)}}
-  if(modelActive){ensureModelLayer();try{map.easeTo({pitch:60,bearing:-20,duration:600})}catch{}}
+  if(modelActive){
+   if(window.THREE)ensureModelLayer();
+   else {status('Loading optional 3D landmarks…');void loadThreeOnDemand().then(()=>{if(modelActive)ensureModelLayer()}).catch(error=>{if(modelActive){modelActive=false;if(b){b.textContent='✧ 3D Landmarks: OFF';b.setAttribute('aria-pressed','false')}status('3D download unavailable. Aerial navigation still works.')}console.warn(error)})}
+   try{map.easeTo({pitch:60,bearing:-20,duration:600})}catch{}
+  }
   map.triggerRepaint?.();
  }
  if(!modelActive)status('3D landmarks off · faster aerial navigation');
