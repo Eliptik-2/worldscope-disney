@@ -22,6 +22,7 @@
  function setMapView(colored3d){
   if(window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
   if(window.WorldscopeV22?.toggle)window.WorldscopeV22.toggle(!!colored3d);
+  if(!colored3d && typeof map!=='undefined'&&map?.easeTo)try{map.easeTo({pitch:0,bearing:0,duration:350})}catch{}
   document.body.classList.toggle('ws23-three-d',!!colored3d);
   const b=$('ws23-map3d'),a=$('ws23-map2d');
   if(a)a.setAttribute('aria-pressed',String(!colored3d));
