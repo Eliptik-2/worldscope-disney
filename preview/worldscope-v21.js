@@ -125,7 +125,7 @@ function activate(){if(!enabled||typeof map==='undefined'||!map||!map.isStyleLoa
 function toggle(on){enabled=!!on;const btn=$('worldscope-v21-toggle');
  if(btn){btn.textContent=enabled?'✦ 3D ON':'✧ 3D OFF';btn.setAttribute('aria-pressed',String(enabled))}
  if(!enabled){if(typeof map!=='undefined'&&map?.getLayer('worldscope-v21-mesh'))try{map.removeLayer('worldscope-v21-mesh')}catch{};status('Lightweight aerial view · landmark models hidden')}
- else{activate();if(typeof map!=='undefined'&&map)try{map.easeTo({pitch:57,bearing:-18,duration:600})}catch{}}
+ else{activate();if(typeof map!=='undefined'&&map){try{map.easeTo({pitch:57,bearing:-18,duration:600})}catch{}if(map.getZoom?.()<15.5)status('3D ON · zoom in or choose a landmark to see the models')}}
 }
 function focus(id){const s=sites.find(site=>site.id===id);if(!s)return;
  if(typeof go==='function')go('map');
