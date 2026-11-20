@@ -1,0 +1,30 @@
+/* Worldscope v2.3: neutral illustrated atlas + colorful custom 3D, mobile-safe panels */
+body:not(.ws23-three-d) #mapcanvas .maplibregl-canvas{filter:grayscale(.88) saturate(.32) contrast(1.08) brightness(.94)}
+body.ws23-three-d #mapcanvas .maplibregl-canvas{filter:none}
+#map .map-modes,#map #mapModes{display:none!important}
+#ws23-map-style{position:absolute;left:10px;top:9px;z-index:11;display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:min(400px,calc(100% - 98px));padding:7px;background:#0b1e2fe8;border:1px solid #e2be8399;border-radius:13px;box-shadow:0 8px 30px #0008;backdrop-filter:blur(10px)}
+#ws23-map-style button{min-height:42px;padding:8px 12px;border-radius:9px;background:#1d3b50;border:1px solid #6b8d9b;color:#eaf4fa;font-weight:800;font-size:12px}
+#ws23-map-style button[aria-pressed="true"]{background:linear-gradient(125deg,#ffe6ab,#e4b66a);border-color:#ffe3b0;color:#172e43}
+#ws23-map-style button:focus-visible,#ws23-directions-close:focus-visible,#ws23-ar-open:focus-visible,#ws23-place-marker:focus-visible{outline:3px solid #ffe9bf;outline-offset:2px}
+#ws23-map-style small{display:block;width:100%;font-size:10px;line-height:1.3;color:#bfd5dc}
+body.worldscope-immersive #ws23-map-style{top:calc(env(safe-area-inset-top,0px) + 75px);max-width:calc(100% - 100px)}
+body.worldscope-immersive .worldscope-v21-tools{top:calc(env(safe-area-inset-top,0px) + 176px)!important;max-width:calc(100% - 90px)}
+#ws23-directions-close{display:none;position:sticky;top:-14px;z-index:30;width:100%;padding:12px 14px;margin:0 0 12px;background:#eac68f;color:#112a3f;border:1px solid #ffe1ac;border-radius:10px;font-weight:900;min-height:48px;cursor:pointer}
+body.worldscope-immersive #ws23-directions-close{display:block}
+.ws23-places{display:grid;gap:9px;padding:13px;border:1px solid #557e8e;border-radius:13px;background:linear-gradient(145deg,#132a3f,#163643);margin:15px 0}
+.ws23-places strong{color:#ffdfa2;font-size:15px}
+.ws23-places p{font-size:12px;line-height:1.5;color:#c5d9df;margin:0}
+.ws23-places button,#ws23-ar-open{min-height:44px;border-radius:10px;color:#fff8ec;font-weight:750;border:1px solid #7192a3;background:#244960;padding:10px 13px;cursor:pointer}
+#ws23-clear-marker{background:transparent;border-color:#647a8a}
+#ws23-lookup-status{color:#f5d9a2!important;min-height:18px}
+#ws23-ar-open{width:100%;margin:8px 0 18px;background:#315262}
+#ws23-ar[hidden]{display:none!important}
+#ws23-ar{position:fixed;inset:0;z-index:99999;width:100vw;height:100dvh;background:#04111f;color:white;display:flex;align-items:center;flex-direction:column;justify-content:space-between;overflow:hidden}
+#ws23-camera{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#172336;z-index:0}
+#ws23-ar::after{content:'';position:absolute;inset:0;background:linear-gradient(#031422a8,transparent 22%,transparent 60%,#031422e8);z-index:1;pointer-events:none}
+.ws23-ar-top{z-index:2;position:relative;max-width:95%;margin-top:calc(env(safe-area-inset-top,0px) + 20px);font-size:13px;letter-spacing:1.5px;font-weight:900;color:#ffe2ac;text-align:center;text-shadow:0 2px 8px black}
+.ws23-ar-guide{z-index:2;position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);font-size:65px;color:#79f4d3;text-shadow:0 1px 20px black;opacity:.7;pointer-events:none}
+.ws23-ar-guide::after{content:'';position:absolute;left:50%;top:100%;height:32vh;border-left:5px dashed #72ffdb75;transform:perspective(300px) rotateX(30deg);pointer-events:none}
+#ws23-ar-status{position:relative;z-index:2;margin:auto 16px 14px;max-width:540px;text-align:center;padding:14px;border-radius:12px;background:#071b2bdc;border:1px solid #ffdc9f;font-size:13px;line-height:1.55}
+#ws23-ar>button{position:relative;z-index:2;margin:0 12px calc(env(safe-area-inset-bottom,0px) + 19px);width:min(450px,calc(100% - 24px));background:#ffdd9f;color:#10263c;min-height:49px;border:none;border-radius:13px;font-weight:900}
+@media(max-width:600px){#ws23-map-style{left:7px;top:6px;max-width:calc(100% - 83px);padding:5px;gap:4px}#ws23-map-style button{padding:7px 10px;min-height:38px}#ws23-map-style small{display:none}body.worldscope-immersive #ws23-map-style{top:calc(env(safe-area-inset-top,0px) + 78px);max-width:calc(100% - 86px)}body.worldscope-immersive .worldscope-v21-tools{top:calc(env(safe-area-inset-top,0px) + 132px)!important}body.worldscope-immersive #routepanel{padding-top:12px!important}}
