@@ -1,0 +1,44 @@
+/* Worldscope v2.4 — full-map affordance, clean storybook 3D and compact controls. */
+#worldscope-scene{display:none!important}
+body:not(.worldscope-immersive) #exploreFullscreenButton{
+ display:flex!important;align-items:center;gap:5px;position:absolute!important;
+ top:9px!important;right:11px!important;left:auto!important;bottom:auto!important;
+ z-index:45!important;padding:9px 12px!important;min-height:42px;
+ background:#0b243ce9;border:1px solid #f1d399;border-radius:11px;
+ box-shadow:0 8px 22px #0008;color:#ffedc9;font-size:12px;font-weight:900;
+}
+body:not(.worldscope-immersive) #map .mapcontrols{top:69px!important;right:11px!important;z-index:10}
+body.worldscope-immersive #exploreFullscreenButton{display:none!important}
+body.worldscope-immersive .explore-header #exploreBack{display:inline-flex;align-items:center;justify-content:center}
+body.worldscope-immersive #ws23-directions-close{display:block!important;position:sticky;top:0;z-index:100}
+/* The fly-to chooser is now opt-in and takes no screen space until opened. */
+#worldscope-v21-tools.ws24-legacy-hidden{display:none!important}
+#ws24-landmarks{position:absolute;left:11px;bottom:72px;z-index:10;
+ max-width:min(260px,calc(100% - 25px));font:700 12px/1.35 system-ui,sans-serif;
+ color:#f9e9c5;background:#102b3ceb;border:1px solid #d7bc86a6;
+ border-radius:11px;box-shadow:0 7px 23px #0008;backdrop-filter:blur(12px)}
+#ws24-landmarks summary{cursor:pointer;list-style:none;padding:10px 12px;min-height:40px}
+#ws24-landmarks summary::-webkit-details-marker{display:none}
+#ws24-landmarks summary:after{content:' ▾';color:#d5e9e5}
+#ws24-landmarks[open] summary:after{content:' ▴'}
+#ws24-landmarks select{display:block;width:calc(100% - 18px);margin:3px 9px 8px;
+ background:#18394a;color:#fff;border:1px solid #7199a7;border-radius:8px;min-height:42px;max-width:230px}
+#ws24-landmarks small{display:block;font-size:10px;font-weight:500;color:#c5d8e4;padding:0 10px 9px}
+#ws24-landmarks:focus-within{outline:1px solid #edc27e}
+body.worldscope-immersive #ws24-landmarks{bottom:calc(env(safe-area-inset-bottom,0px) + 74px)}
+.ws24-path-status{margin:8px 0 12px;padding:10px 12px;background:#15334a;border:1px solid #6c9bad;
+ border-radius:10px;color:#cde6e9;font-size:12px;line-height:1.5}
+.ws24-path-status:empty{display:none}
+.ws24-path-status[data-level="warning"]{border-color:#c69a68;color:#ffe2b8}
+#ws24-landmarks summary:focus-visible,#exploreFullscreenButton:focus-visible,
+#ws24-landmarks select:focus-visible{outline:3px solid #fbe6be;outline-offset:2px}
+@media(max-width:650px){
+ body:not(.worldscope-immersive) #exploreFullscreenButton{top:auto!important;bottom:calc(env(safe-area-inset-bottom,0px) + 75px)!important;right:8px!important;z-index:40!important}
+ body:not(.worldscope-immersive) #map .mapcontrols{top:8px!important}
+ #ws24-landmarks{bottom:calc(env(safe-area-inset-bottom,0px) + 68px);left:8px}
+ body.worldscope-immersive .explore-header{min-height:66px}
+ body.worldscope-immersive #ws23-map-style{top:calc(env(safe-area-inset-top,0px) + 78px)}
+ body.worldscope-immersive #routepanel{overscroll-behavior:contain;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))!important}
+}
+/* Keep the fullscreen Directions drawer above all map widgets on narrow phones. */
+body.worldscope-immersive #routepanel{z-index:42!important}
