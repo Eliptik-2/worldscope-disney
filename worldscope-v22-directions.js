@@ -10,7 +10,7 @@ const entries=()=>typeof items!=='undefined'&&Array.isArray(items)?items:[];
 const hasCoord=e=>!!e&&Number.isFinite(e.lat)&&Number.isFinite(e.lon);
 const label=e=>e.park+' · '+e.name;
 const matchesType=e=>activeType==='all'||(activeType==='other'?!known.has(e.category):e.category===activeType);
-function getPicked(){const id=$('worldscope-destination')?.value;return entries().find(e=>String(e.id)===String(id))||activeEntry}
+function getPicked(){const id=$('worldscope-destination')?.value;const selected=entries().find(e=>String(e.id)===String(id));return activeEntry||selected}
 function createOption(text,value){const o=document.createElement('option');o.value=value;o.textContent=text;return o}
 function addTypeFilter(){
  const parent=$('worldscope-destination')?.closest('.worldscope-dest-picker');if(!parent||$('worldscope-v22-category'))return;
