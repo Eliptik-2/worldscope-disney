@@ -216,7 +216,7 @@ function toggleModels(on){
   if(!modelActive&&map.getLayer(modelLayer)){try{map.removeLayer(modelLayer)}catch(e){console.warn(e)}}
   if(modelActive){
    if(window.THREE)ensureModelLayer();
-   else {status('Loading optional 3D landmarks…');void loadThreeOnDemand().then(()=>{if(modelActive)ensureModelLayer()}).catch(error=>{if(modelActive){modelActive=false;if(b){b.textContent='✧ 3D Landmarks: OFF';b.setAttribute('aria-pressed','false')}status('3D download unavailable. Aerial navigation still works.')}console.warn(error)})}
+   else {status('Loading optional 3D landmarks…');void loadThreeOnDemand().then(()=>{if(modelActive){if(map?.isStyleLoaded?.())ensureModelLayer();else map?.once?.('idle',()=>{if(modelActive)ensureModelLayer()})}}).catch(error=>{if(modelActive){modelActive=false;if(b){b.textContent='✧ 3D Landmarks: OFF';b.setAttribute('aria-pressed','false')}status('3D download unavailable. Aerial navigation still works.')}console.warn(error)})}
    try{map.easeTo({pitch:60,bearing:-20,duration:600})}catch{}
   }
   map.triggerRepaint?.();
