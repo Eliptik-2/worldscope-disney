@@ -1,0 +1,16 @@
+/* Worldscope v2.5 — compact optional ride-model studio; map-first visual design. */
+#ws25-open{position:absolute;z-index:11;left:11px;bottom:126px;background:#102c40e9;color:#ffdb98;border:1px solid #dfc081;border-radius:10px;padding:10px 12px;min-height:42px;font:750 12px/1.2 system-ui,sans-serif;box-shadow:0 6px 21px #0008;cursor:pointer}
+#ws25-open:hover{background:#254963}#ws25-open:focus-visible,#worldscope-v25-ride-studio :is(select,button):focus-visible{outline:3px solid #ffdc96;outline-offset:2px}
+#worldscope-v25-ride-studio{position:absolute;z-index:52;top:13px;right:11px;bottom:13px;width:min(352px,calc(100% - 22px));padding:14px;background:#10243bf7;border:1px solid #d5c294;border-radius:16px;box-shadow:0 20px 60px #000c;display:flex;flex-direction:column;gap:11px;color:#eef6f7;overflow:auto;backdrop-filter:blur(16px)}
+#worldscope-v25-ride-studio[hidden]{display:none!important}
+.ws25-title{display:flex;align-items:center;justify-content:space-between;gap:6px}.ws25-title strong{font:750 20px/1.15 Georgia,'Times New Roman',serif;color:#ffdd9e}.ws25-title button{font-size:20px;width:42px;height:42px}
+#worldscope-v25-ride-studio button,#worldscope-v25-ride-studio select{background:#244356;color:#f4f7f4;border:1px solid #789aa2;border-radius:10px;padding:9px 11px;min-height:42px;cursor:pointer}
+#worldscope-v25-ride-studio p{font:12px/1.5 system-ui,sans-serif;color:#d5e3e9;margin:0}
+#worldscope-v25-ride-studio small{font:11px/1.4 system-ui,sans-serif;color:#f5dbaf}
+#ws25-ride-choice{width:100%;white-space:nowrap;text-overflow:ellipsis}
+#ws25-ride-canvas{display:block;width:100%;height:min(270px,40vh);min-height:175px;border-radius:12px;background:#0b2239;border:1px solid #426379}
+#ws25-ride-fly:disabled{opacity:.4;cursor:not-allowed}
+body.worldscope-immersive #ws25-open{bottom:calc(126px + env(safe-area-inset-bottom,0px))}
+body.worldscope-immersive #worldscope-v25-ride-studio{top:calc(76px + env(safe-area-inset-top,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+@media(max-width:650px){#ws25-open{left:8px;bottom:calc(122px + env(safe-area-inset-bottom,0px));min-height:40px;font-size:11px;padding:9px}#worldscope-v25-ride-studio{left:8px;right:8px;width:auto;top:10px;bottom:10px;padding:10px}body.worldscope-immersive #ws25-open{bottom:calc(123px + env(safe-area-inset-bottom,0px))}}
+@media(prefers-reduced-motion:reduce){#worldscope-v25-ride-studio *{scroll-behavior:auto}}
