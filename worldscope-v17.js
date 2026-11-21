@@ -75,7 +75,7 @@ const OPENFREE='https://tiles.openfreemap.org/planet';
 const esri='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const usgs='https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}';
 const esriCredit='Imagery © Esri, Vantor, Earthstar Geographics and the GIS User Community';
-let buildingsEnabled=true;
+let buildingsEnabled=false;
 let mapHooked=null;
 let mapStyleError=false;
 function aerialStyle(mode){
@@ -98,31 +98,15 @@ function update3dUI(){
  });
 }
 function ensure3dBuildings(){
+ // Worldscope v2.5: legacy extrusions are not used by the custom 3D models.
+ // Remove them at their source; hiding them later is vulnerable to timer races.
  if(!map||!map.isStyleLoaded?.())return false;
- try{
-  const existing=map.getLayer('worldscope-v17-buildings');
-  if(!buildingsEnabled){if(existing)map.setLayoutProperty('worldscope-v17-buildings','visibility','none');return true}
-  if(existing){map.setLayoutProperty('worldscope-v17-buildings','visibility','visible');return true}
-  const style=map.getStyle();
-  const styleSrc=style.sources?.openmaptiles?'openmaptiles':style.sources?.openfreemap?'openfreemap':null;
-  let vectorSource=styleSrc;
-  if(!vectorSource){
-   vectorSource='worldscope-v17-vector';
-   if(!map.getSource(vectorSource))map.addSource(vectorSource,{type:'vector',url:OPENFREE});
-  }
-  const firstSymbol=style.layers.find(l=>l.type==='symbol')?.id;
-  const layer={id:'worldscope-v17-buildings',type:'fill-extrusion',source:vectorSource,'source-layer':'building',minzoom:14,
-   paint:{'fill-extrusion-color':mapMode==='color'||mapMode==='color3d'?'#9eb5c7':'#a7c2d2',
-    'fill-extrusion-height':['coalesce',['get','render_height'],9],
-    'fill-extrusion-base':['coalesce',['get','render_min_height'],0],
-    'fill-extrusion-opacity':mapMode==='color'||mapMode==='color3d'?.82:.66}};
-  if(firstSymbol)map.addLayer(layer,firstSymbol);else map.addLayer(layer);
-  // Some base maps already contain generic extrusion layers; avoid double-rendering those.
-  style.layers.filter(l=>l.type==='fill-extrusion'&&l.id!==layer.id).forEach(l=>{
-   try{map.setLayoutProperty(l.id,'visibility','none')}catch{}
-  });
-  return true;
- }catch(error){console.warn('3D buildings may be unavailable in this map source',error);return false}
+ for(const layer of map.getStyle()?.layers||[]){
+  if(layer.type!=='fill-extrusion')continue;
+  try{if(map.getLayer(layer.id))map.removeLayer(layer.id)}
+  catch(e){try{map.setLayoutProperty(layer.id,'visibility','none')}catch(err){console.warn('Extrusion cleanup',err)}}
+ }
+ return false;
 }
 window.enableBuildings=ensure3dBuildings;
 function attachMapHooks(){
@@ -153,10 +137,10 @@ window.setMapMode=function(mode){
  if(map.isStyleLoaded?.())ensure3dBuildings();
 };
 window.worldscopeToggleBuildings=function(){
- buildingsEnabled=!buildingsEnabled;
- if(typeof show3dBuildings!=='undefined')show3dBuildings=buildingsEnabled;
- if(typeof pitch3d!=='undefined')pitch3d=buildingsEnabled;
- if(map){ensure3dBuildings();try{map.easeTo({pitch:buildingsEnabled?53:0,bearing:buildingsEnabled?-18:0,duration:400})}catch{}}
+ buildingsEnabled=false;
+ if(typeof show3dBuildings!=='undefined')show3dBuildings=false;
+ if(typeof pitch3d!=='undefined')pitch3d=false;
+ if(map)ensure3dBuildings();
  update3dUI();
 };
 window.changePitch=window.worldscopeToggleBuildings;
