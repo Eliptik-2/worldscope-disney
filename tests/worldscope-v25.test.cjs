@@ -21,6 +21,9 @@ for(const r of all){const mesh=api.buildRide(r.type,r.id+':'+r.name);types.add(r
  totalTriangles+=mesh.indices.length/3;
 }
 assert.ok(types.size>=7,'distinct 3D archetypes');
+const legacy=fs.readFileSync(path.join(__dirname,'../worldscope-v17.js'),'utf8');
+assert.ok(legacy.includes('let buildingsEnabled=false;'),'legacy gray extrusion toggle defaults off');
+assert.ok(!legacy.includes("map.addLayer(layer,firstSymbol)"),'legacy building creation routine cannot return');
 win.initMap();assert.ok(!layers.gray&&!layers.grayAgain,'gray extrusions are removed on map attachment');assert.ok(layers.route,'route remains visible');
 const fresh={id:'new-gray',type:'fill-extrusion'};layers[fresh.id]=fresh;listeners.styledata?.forEach(fn=>fn());
 assert.ok(!layers[fresh.id],'late gray extrusion cannot persist');
