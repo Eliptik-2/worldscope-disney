@@ -23,6 +23,8 @@ states.color=false;api.sync();
 assert.equal(layers['worldscope-v26-architecture'].layout.visibility,'none','Atlas hides footprints without destroying layer');
 states.color=true;api.sync();
 assert.equal(layers['worldscope-v26-architecture'].layout.visibility,'visible','3D reenable works');
+api.toggleFootprints(false);assert.equal(layers['worldscope-v26-architecture'].layout.visibility,'none','manual footprint OFF');
+api.toggleFootprints(true);assert.equal(layers['worldscope-v26-architecture'].layout.visibility,'visible','manual footprint ON');
 assert.ok(layers.line,'route line retained');
 assert.ok(api.state.layerPresent,'API reports registered geometry');
 const old=layers['worldscope-v26-architecture'];
