@@ -262,13 +262,13 @@ function drawControls(){if(el('ws25-open'))return;const wrap=document.querySelec
  const count=document.createElement('small');count.id='ws25-model-count';count.textContent='Loading directory…';
  const select=document.createElement('select');select.id='ws25-ride-choice';select.setAttribute('aria-label','Choose a ride or shop to preview');select.addEventListener('change',updatePicked);
  const canvas=document.createElement('canvas');canvas.id='ws25-ride-canvas';canvas.width=350;canvas.height=270;canvas.setAttribute('aria-label','Rotating WebGL model preview');
- const status=document.createElement('p');status.id='ws25-ride-status';const fly=document.createElement('button');fly.type='button';fly.id='ws25-ride-fly';fly.textContent='View location in Color 3D';fly.addEventListener('click',()=>{const r=selected();if(!r?.mapped)return;closeStudio();if(window.WorldscopeV23?.setMapView)window.WorldscopeV23.setMapView(true);toggle(true);if(typeof map!=='undefined'&&map)map.flyTo({center:[r.lon,r.lat],zoom:18.4,pitch:59,bearing:-18,duration:800})});
+ const status=document.createElement('p');status.id='ws25-ride-status';const fly=document.createElement('button');fly.type='button';fly.id='ws25-ride-fly';fly.textContent='Show mapped location';fly.addEventListener('click',()=>{const r=selected();if(!r?.mapped)return;closeStudio();if(window.WorldscopeV23?.setMapView)window.WorldscopeV23.setMapView(true);toggle(false);if(typeof map!=='undefined'&&map)map.flyTo({center:[r.lon,r.lat],zoom:18.4,pitch:59,bearing:-18,duration:800})});
  aside.append(title,note,count,select,canvas,status,fly);wrap.append(aside);
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!aside.hidden)closeStudio()});
  refreshCatalog();
 }
 function ready(){drawControls();refreshCatalog();attach();}
-function onModeChange(){toggle(!!document.body.classList.contains('ws23-three-d'))}
+function onModeChange(){toggle(false)}
 const oldInit=window.initMap;if(typeof oldInit==='function')window.initMap=function(){const x=oldInit();attach();return x};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 window.addEventListener('worldscope-ready',()=>{ready();if(enabled){removeMapModels();addMapModels()}});

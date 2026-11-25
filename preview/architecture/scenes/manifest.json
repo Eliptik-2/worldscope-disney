@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "source": "Overture Maps \u2022 ODbL-1.0",
+  "fixture": false,
+  "regions": [
+    {
+      "id": "magic-kingdom",
+      "name": "Magic Kingdom",
+      "file": "magic-kingdom.json",
+      "count": 613,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 509,
+        "footprint-only": 104
+      }
+    },
+    {
+      "id": "epcot",
+      "name": "EPCOT",
+      "file": "epcot.json",
+      "count": 483,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 320,
+        "footprint-only": 163
+      }
+    },
+    {
+      "id": "hollywood-studios",
+      "name": "Hollywood Studios",
+      "file": "hollywood-studios.json",
+      "count": 299,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 211,
+        "footprint-only": 88
+      }
+    },
+    {
+      "id": "animal-kingdom",
+      "name": "Animal Kingdom",
+      "file": "animal-kingdom.json",
+      "count": 335,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 250,
+        "footprint-only": 85
+      }
+    },
+    {
+      "id": "disney-springs",
+      "name": "Disney Springs",
+      "file": "disney-springs.json",
+      "count": 425,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 331,
+        "footprint-only": 94
+      }
+    },
+    {
+      "id": "boardwalk",
+      "name": "BoardWalk / Crescent Lake",
+      "file": "boardwalk.json",
+      "count": 387,
+      "counts": {
+        "source-gable": 0,
+        "height-massing": 261,
+        "footprint-only": 126
+      }
+    }
+  ]
+}

@@ -20,20 +20,24 @@
   if(window.WorldscopeV22?.refreshPins)window.WorldscopeV22.refreshPins();
  }
  function setMapView(colored3d){
+  window.WorldscopeCleanView27?.resetLandmarks();
+  window.WorldscopeRideAtlas25?.toggle(false);
   if(typeof map!=='undefined'&&map&&window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
-  if(window.WorldscopeV22?.toggle)window.WorldscopeV22.toggle(!!colored3d);
-  if(!colored3d && typeof map!=='undefined'&&map?.easeTo)try{map.easeTo({pitch:0,bearing:0,duration:350})}catch{}
+  // Geographic map mode never automatically displays concept meshes.
+  if(window.WorldscopeV22?.toggle)window.WorldscopeV22.toggle(false);
+  if(typeof map!=='undefined'&&map?.easeTo)try{map.easeTo({pitch:colored3d?52:0,bearing:0,duration:350})}catch{}
   document.body.classList.toggle('ws23-three-d',!!colored3d);
+  window.WorldscopeArchitecture26?.sync();
   const b=$('ws23-map3d'),a=$('ws23-map2d');
   if(a)a.setAttribute('aria-pressed',String(!colored3d));
   if(b)b.setAttribute('aria-pressed',String(!!colored3d));
-  const text=$('ws23-map-desc');if(text)text.textContent=colored3d?'3D concept models in color · Main Street buildings are illustrative, not surveyed':'Neutral illustrated atlas · no satellite tiles';
+  const text=$('ws23-map-desc');if(text)text.textContent=colored3d?'Mapped building outlines • heights vary':'Flat geographic atlas';
  }
  function initView(){
   const wrap=document.querySelector('#map .mapwrap');if(!wrap||$('ws23-map-style'))return;
   const box=document.createElement('div');box.id='ws23-map-style';box.className='ws23-map-style';
   const mapBtn=document.createElement('button');mapBtn.type='button';mapBtn.id='ws23-map2d';mapBtn.textContent='◈ Atlas';mapBtn.addEventListener('click',()=>setMapView(false));
-  const threeBtn=document.createElement('button');threeBtn.type='button';threeBtn.id='ws23-map3d';threeBtn.textContent='✦ Color 3D';threeBtn.addEventListener('click',()=>setMapView(true));
+  const threeBtn=document.createElement('button');threeBtn.type='button';threeBtn.id='ws23-map3d';threeBtn.textContent='3D layout';threeBtn.addEventListener('click',()=>setMapView(true));
   const desc=document.createElement('small');desc.id='ws23-map-desc';desc.textContent='Neutral illustrated atlas · no satellite tiles';
   box.append(mapBtn,threeBtn,desc);wrap.append(box);
   // Preserve the original 3D picker (landmark fly-to), but remove duplicate toggle to reduce screen clutter.
