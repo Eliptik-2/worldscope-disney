@@ -26,7 +26,7 @@ function update(){
   if(m.getLayer(ID)){
    const v=mode?'visible':'none';
    if(m.getLayoutProperty(ID,'visibility')!==v)m.setLayoutProperty(ID,'visibility',v);
-   if(mode)setStatus('Mapped footprints with source-reported heights; unknown heights remain flat. Not architectural replicas.');
+   if(mode)setStatus('Mapped footprints with tile-provided heights (may be estimates); missing heights remain flat. Not architectural replicas.');
    else setStatus('Atlas: building roofs hidden • switch to Color 3D for the building layout');
    return true;
   }
