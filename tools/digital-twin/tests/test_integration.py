@@ -29,8 +29,7 @@ try:
   second.locator('#three').click(); assert second.evaluate('WorldscopeTwin.state.mode')=='3d'
   # Simulate a missing dataset; the old map must not offer a dead link.
   missing=browser.new_page()
-  missing.route('**/architecture/scenes/manifest.json',lambda r:r.fulfill(status=404,body='missing'))
-  missing.route('**/*',lambda r:r.continue_() if r.request.url.startswith(url) else r.abort())
+  missing.route('**/*',lambda r:r.fulfill(status=404,body='missing') if r.request.url.endswith('/architecture/scenes/manifest.json') else r.continue_() if r.request.url.startswith(url) else r.abort())
   missing.goto(url+'/index.html',wait_until='domcontentloaded')
   missing.wait_for_function("window.WorldscopeTwin28?.state==='unavailable'")
   assert missing.locator('#ws28-twin').is_hidden()
