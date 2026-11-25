@@ -12,7 +12,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,8 +23,14 @@ jobs:
           python-version: '3.12'
       - name: Validate importer with synthetic fixtures
         run: node tools/digital-twin/prepare-buildings.test.mjs
-      - name: Install Overture Maps client
-        run: python -m pip install overturemaps
+      - name: Install geographic and browser tooling
+        run: |
+          python -m pip install overturemaps 'shapely>=2.1,<3' playwright
+          python -m playwright install --with-deps chromium
+      - name: Test mesh construction and viewer with synthetic geometry
+        run: |
+          python tools/digital-twin/tests/test_scene.py
+          python tools/digital-twin/tests/test_browser.py
       - name: Acquire open building and building-part geometry
         run: |
           mkdir -p twin-data/raw twin-data/processed
@@ -34,10 +40,40 @@ jobs:
           date -u +%FT%TZ > twin-data/raw/acquired-utc.txt
       - name: Preserve source metadata and produce coverage report
         run: node tools/digital-twin/run.mjs twin-data/raw/buildings.geojson twin-data/raw/parts.geojson data.json twin-data/processed
+      - name: Build region-by-region geographic architecture meshes
+        run: |
+          mkdir -p twin-data/viewer/scenes
+          cp tools/digital-twin/viewer/index.html twin-data/viewer/
+          python tools/digital-twin/build_scene.py twin-data/processed/architecture.geojson twin-data/viewer/scenes
+      - name: Verify acquired scene integrity and browser rendering
+        run: |
+          python - <<'PY'
+          import json, pathlib, base64, math, struct
+          root = pathlib.Path('twin-data/viewer/scenes')
+          manifest = json.loads((root/'manifest.json').read_text())
+          assert manifest['fixture'] is False and manifest['regions']
+          for region in manifest['regions']:
+              data=json.loads((root/region['file']).read_text())
+              assert data['fixture'] is False and data['features']
+              binary=base64.b64decode(data['vertices'], validate=True)
+              assert data['vertexCount']>0 and data['vertexCount']%3==0
+              assert len(binary)==24*data['vertexCount']
+              assert all(math.isfinite(v[0]) for v in struct.iter_unpack('<f',binary))
+              assert sum(data['counts'].values())==len(data['features'])
+              assert all(f['height'] is None for f in data['features'] if f['mode']=='footprint-only')
+              print(region['name'], len(data['features']), data['counts'])
+          required={'magic-kingdom','epcot','hollywood-studios','animal-kingdom','disney-springs','boardwalk'}
+          assert required <= {r['id'] for r in manifest['regions']}, 'One or more key study areas have no source buildings'
+          PY
+          python tools/digital-twin/tests/test_browser.py twin-data/viewer/scenes/magic-kingdom.json
+          mkdir -p twin-data/browser-tests
+          cp tools/digital-twin/*-render-*.png twin-data/browser-tests/
       - name: Include source credit and review criteria
-        run: cp docs/DIGITAL_TWIN.md twin-data/README.md
+        run: |
+          cp docs/DIGITAL_TWIN.md twin-data/README.md
+          cp tools/digital-twin/README.md twin-data/viewer/README.md
       - uses: actions/upload-artifact@v4
         with:
           name: worldscope-digital-twin-study
           path: twin-data
-          retention-days: 7
+          retention-days: 14
