@@ -14,7 +14,7 @@ function hideGrayBuildings(){
  const layers=map.getStyle()?.layers||[];
  let hidden=0;
  for(const lyr of layers){
-  if(lyr.type!=='fill-extrusion')continue;
+  if(lyr.type!=='fill-extrusion'||lyr.id==='worldscope-v26-architecture')continue;
   try{
    if(map.getLayoutProperty?.(lyr.id,'visibility')!=='none'){
     map.setLayoutProperty(lyr.id,'visibility','none');hidden++;
