@@ -26,7 +26,7 @@ function update(){
   if(m.getLayer(ID)){
    const v=mode?'visible':'none';
    if(m.getLayoutProperty(ID,'visibility')!==v)m.setLayoutProperty(ID,'visibility',v);
-   if(mode)setStatus('Colored 3D building footprints • OpenStreetMap coverage and heights vary. Individual ride/shop concepts are separate.');
+   if(mode)setStatus('Mapped footprints with source-reported heights; unknown heights remain flat. Not architectural replicas.');
    else setStatus('Atlas: building roofs hidden • switch to Color 3D for the building layout');
    return true;
   }
@@ -46,13 +46,13 @@ function update(){
     'fill-extrusion-color':['case',
       ['>=',['coalesce',['to-number',['get','render_height']],0],18],'#a9c9d4',
       ['>=',['coalesce',['to-number',['get','render_height']],0],10],'#e5b98b',color],
-    'fill-extrusion-height':['min',28,['max',3,['coalesce',['to-number',['get','render_height']],8]]],
-    'fill-extrusion-base':['max',0,['coalesce',['to-number',['get','render_min_height']],0]],
-    'fill-extrusion-opacity':0.68
+    'fill-extrusion-height':['max',0,['to-number',['get','render_height'],0]],
+    'fill-extrusion-base':['min',['max',0,['to-number',['get','render_height'],0]],['max',0,['to-number',['get','render_min_height'],0]]],
+    'fill-extrusion-opacity':0.94
    }
   },before);
   sourceReady=true;
-  setStatus(mode?'Color 3D: OSM building footprints added. Shapes and heights depend on contributed data.':'Atlas: 3D building layout ready when Color 3D is enabled.');
+  setStatus(mode?'3D layout: mapped footprints; unknown heights remain flat.':'Atlas: 3D building layout ready when Color 3D is enabled.');
   return true;
  }catch(e){lastError=String(e?.message||e);setStatus('Building footprints unavailable. Ride and shop concept models remain usable.');return false}
 }
