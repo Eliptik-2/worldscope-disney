@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [development]
-    paths: ['.github/workflows/worldscope-digital-twin.yml']
+    paths: ['.github/workflows/worldscope-digital-twin.yml', 'tools/digital-twin/**', 'worldscope-v28-twin.js', 'index.html']
 permissions:
   contents: read
 concurrency:
