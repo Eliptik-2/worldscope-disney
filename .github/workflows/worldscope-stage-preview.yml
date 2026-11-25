@@ -1,0 +1,70 @@
+name: Stage Worldscope test site
+on:
+  push:
+    branches: [development]
+    paths: ['.github/workflows/worldscope-stage-preview.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: worldscope-stage-preview
+  cancel-in-progress: false
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download previously validated source geometry
+        uses: actions/download-artifact@v4
+        with:
+          name: worldscope-digital-twin-study
+          run-id: 45617056286
+          github-token: ${{ github.token }}
+          path: twin-data
+      - name: Package updated site
+        run: |
+          cp tools/digital-twin/viewer/index.html twin-data/viewer/index.html
+          python tools/digital-twin/package_preview.py twin-data twin-preview
+          python - <<'PY'
+          import pathlib, zipfile, shutil, json
+          p=pathlib.Path('twin-preview')
+          f=p/'index.html'
+          s=f.read_text().replace('Worldscope v2.7','Worldscope v2.8').replace('Worldscope v2.6','Worldscope v2.8')
+          f.write_text(s)
+          f=p/'manifest.webmanifest'
+          m=json.loads(f.read_text());m.update(name='Worldscope Test — Disney Explorer',short_name='Worldscope Test');f.write_text(json.dumps(m))
+          a=p/'architecture'
+          with zipfile.ZipFile(a/'source-data.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for d in ('source-data','processed-data'):
+                  for file in (a/d).rglob('*'):
+                      if file.is_file(): z.write(file,file.relative_to(a))
+          for d in ('source-data','processed-data'): shutil.rmtree(a/d)
+          f=a/'index.html'; s=f.read_text().replace('Overture Maps</a> · ODbL 1.0.', 'Overture Maps</a> · ODbL 1.0 · <a href="source-data.zip">Source data</a>.')
+          f.write_text(s)
+          PY
+      - name: Install browser testing
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Test staged website using actual geographic scenes
+        run: python tools/digital-twin/tests/test_integration.py twin-preview
+      - name: Stage only the preview directory for publication
+        run: |
+          git fetch origin main
+          git worktree add --detach /tmp/worldscope-stage origin/main
+          mkdir -p /tmp/worldscope-stage/preview
+          cp -a twin-preview/. /tmp/worldscope-stage/preview/
+          cd /tmp/worldscope-stage
+          git add -- preview
+          git diff --cached --name-only | python -c "import sys; p=sys.stdin.read().splitlines(); assert p and all(x.startswith('preview/') for x in p)"
+          git config user.name 'worldscope-preview-bot'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Stage validated Worldscope v2.8 preview'
+          git push origin HEAD:refs/heads/preview-staging
