@@ -9,12 +9,13 @@ The existing 3D park scene now has three levels of representation:
 ## Repairs
 - v2.4 gray building cleanup ignores the specifically registered color building layer `worldscope-v26-architecture`.
 - v2.5 late styledata and idle cleanup also ignores that specific layer, while deleting the obsolete gray extrusion layers.
+- Users can turn the OSM background footprint layer on/off independently using **Building layouts: ON/OFF**; this prevents colored background geometry from obscuring bespoke models.
 - Architecture layer uses one vector source from the active basemap where available; when absent it requests an OpenFreeMap vector source. Layer is hidden in Atlas and visible in Color 3D without destroying it on every switch.
 - Scene is inserted below custom landmark/ride models or symbol layers to keep landmarks and UI readable.
 
 ## Tests actually run
 - In JavaScript model-generation harness: **101/101** 3D meshes generated with finite numbers, valid triangle indices, and no 16-bit vertex overflow. 14 distinct model categories. Largest mesh has 5,492 vertices; 63,780 triangles in aggregate.
-- In mocked MapLibre layer harness: creation of architecture layer, switching Atlas → Color 3D → Atlas → Color 3D, correct visibility and retention of existing route layer, no layer error.
+- In mocked MapLibre layer harness: creation of architecture layer, switching Atlas → Color 3D → Atlas → Color 3D, optional footprint on/off, correct visibility and retention of existing route layer, no layer error.
 - Existing GitHub Actions suite extended with `tests/worldscope-v26.test.cjs`; v2.5 coverage now includes all shop meshes and preservation of the colored architecture layer.
 - Live preview page content was inspected through an already-open browser tab at v2.5. Fully interactive live navigation and actual satellite/vector tile integrity **have not** been verified from the isolated browser environment, and physical iPhone Safari is not tested.
 
