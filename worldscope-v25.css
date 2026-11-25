@@ -14,3 +14,7 @@ body.worldscope-immersive #ws25-open{bottom:calc(126px + env(safe-area-inset-bot
 body.worldscope-immersive #worldscope-v25-ride-studio{top:calc(76px + env(safe-area-inset-top,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 @media(max-width:650px){#ws25-open{left:8px;bottom:calc(122px + env(safe-area-inset-bottom,0px));min-height:40px;font-size:11px;padding:9px}#worldscope-v25-ride-studio{left:8px;right:8px;width:auto;top:10px;bottom:10px;padding:10px}body.worldscope-immersive #ws25-open{bottom:calc(123px + env(safe-area-inset-bottom,0px))}}
 @media(prefers-reduced-motion:reduce){#worldscope-v25-ride-studio *{scroll-behavior:auto}}
+/* v2.6: footprint provenance stays small and nonblocking. */
+.ws26-coverage{position:absolute;z-index:5;left:12px;bottom:68px;max-width:min(420px,calc(100vw - 90px));font-size:10px;color:#d4eee9;background:#10263be0;padding:6px 9px;border-radius:8px;pointer-events:none;line-height:1.4}
+body.worldscope-immersive .ws26-coverage{bottom:calc(env(safe-area-inset-bottom,0px) + 64px)}
+@media(max-width:450px){.ws26-coverage{left:8px;max-width:220px;font-size:9px;bottom:57px}}
