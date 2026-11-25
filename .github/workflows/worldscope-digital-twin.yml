@@ -72,6 +72,15 @@ jobs:
         run: |
           cp docs/DIGITAL_TWIN.md twin-data/README.md
           cp tools/digital-twin/README.md twin-data/viewer/README.md
+      - name: Package integrated website candidate (no deployment)
+        run: python tools/digital-twin/package_preview.py twin-data twin-preview
+      - name: Test packaged Worldscope integration
+        run: python tools/digital-twin/tests/test_integration.py twin-preview
+      - uses: actions/upload-artifact@v4
+        with:
+          name: worldscope-v28-integrated-candidate
+          path: twin-preview
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         with:
           name: worldscope-digital-twin-study

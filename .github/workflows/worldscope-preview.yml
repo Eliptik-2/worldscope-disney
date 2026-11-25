@@ -29,6 +29,8 @@ jobs:
           node --check worldscope-v24.js
           node --check worldscope-v25-rides.js
           node --check worldscope-v26-architecture.js
+          node --check worldscope-v27-view.js
+          node --check worldscope-v28-twin.js
           node --test tests/worldscope-v23.test.cjs
           node --test tests/worldscope-v24.test.cjs
           node --test tests/worldscope-v25.test.cjs
@@ -48,6 +50,7 @@ jobs:
           assert 'map-explore.js' in html
           assert 'worldscope-v25-rides.js' in html and 'worldscope-v25.css' in html
           assert 'worldscope-v26-architecture.js' in html
+          assert 'worldscope-v28-twin.js' in html
           data=json.loads(pathlib.Path('data.json').read_text(encoding='utf-8'))
           assert len(data)>=240, f"Directory has only {len(data)} entries"
           tags=re.findall(r'<script([^>]*)>(.*?)</script>',html,flags=re.S|re.I)
