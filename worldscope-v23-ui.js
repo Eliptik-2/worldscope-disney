@@ -20,11 +20,14 @@
   if(window.WorldscopeV22?.refreshPins)window.WorldscopeV22.refreshPins();
  }
  function setMapView(colored3d){
+  window.WorldscopeCleanView27?.resetLandmarks();
+  window.WorldscopeRideAtlas25?.toggle(false);
   if(typeof map!=='undefined'&&map&&window.WorldscopeV19?.changeMode)window.WorldscopeV19.changeMode('color');
   // Geographic map mode never automatically displays concept meshes.
   if(window.WorldscopeV22?.toggle)window.WorldscopeV22.toggle(false);
   if(typeof map!=='undefined'&&map?.easeTo)try{map.easeTo({pitch:colored3d?52:0,bearing:0,duration:350})}catch{}
   document.body.classList.toggle('ws23-three-d',!!colored3d);
+  window.WorldscopeArchitecture26?.sync();
   const b=$('ws23-map3d'),a=$('ws23-map2d');
   if(a)a.setAttribute('aria-pressed',String(!colored3d));
   if(b)b.setAttribute('aria-pressed',String(!!colored3d));
