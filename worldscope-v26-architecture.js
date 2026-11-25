@@ -5,7 +5,7 @@
 (function(){
 'use strict';
 const ID='worldscope-v26-architecture',SOURCE='worldscope-v26-osm';
-let observed=null,mode=false,sourceReady=false,knownFootprints=0,lastError='';
+let observed=null,mode=false,showFootprints=true,sourceReady=false,lastError='';
 const activeMap=()=>typeof map!=='undefined'&&map&&map.isStyleLoaded?.()?map:null;
 const color='#dbc9a7';
 function sourceFor(m){
@@ -21,7 +21,7 @@ function setStatus(message){
 }
 function update(){
  const m=activeMap();if(!m)return false;
- mode=isColorMode();
+ mode=isColorMode()&&showFootprints;
  try{
   if(m.getLayer(ID)){
    const v=mode?'visible':'none';
@@ -72,6 +72,11 @@ function bind(){
 function arrange(){
  const wrap=document.querySelector('#map .mapwrap');
  if(!wrap)return;
+ if(!document.getElementById('ws26-footprint-toggle')){
+  const b=document.createElement('button');b.id='ws26-footprint-toggle';b.type='button';b.textContent='▧ Building layouts: ON';
+  b.setAttribute('aria-pressed','true');b.setAttribute('aria-label','Show or hide OpenStreetMap 3D building footprint extrusions');
+  b.addEventListener('click',()=>{showFootprints=!showFootprints;b.textContent=showFootprints?'▧ Building layouts: ON':'▤ Building layouts: OFF';b.setAttribute('aria-pressed',String(showFootprints));update()});wrap.append(b)
+ }
  if(!document.getElementById('ws26-coverage')){
   const t=document.createElement('small');
   t.id='ws26-coverage';t.className='ws26-coverage';
@@ -85,5 +90,5 @@ if(typeof oldInit==='function')window.initMap=function(){const r=oldInit();bind(
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',arrange,{once:true});else arrange();
 window.addEventListener('worldscope-ready',arrange);
 document.addEventListener('click',e=>{if(e.target?.closest?.('#ws23-map2d,#ws23-map3d'))queueMicrotask(()=>{cleanupLegacy();update()})});
-window.WorldscopeArchitecture26={sync:update,bind,get state(){return{colorMode:mode,layerPresent:!!activeMap()?.getLayer(ID),sourceReady,lastError}}};
+window.WorldscopeArchitecture26={sync:update,bind,toggleFootprints(on){showFootprints=!!on;const b=document.getElementById('ws26-footprint-toggle');if(b){b.textContent=showFootprints?'▧ Building layouts: ON':'▤ Building layouts: OFF';b.setAttribute('aria-pressed',String(showFootprints))}return update()},get state(){return{colorMode:mode,showFootprints,layerPresent:!!activeMap()?.getLayer(ID),sourceReady,lastError}}};
 })();
