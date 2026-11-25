@@ -18,3 +18,8 @@ body.worldscope-immersive #worldscope-v25-ride-studio{top:calc(76px + env(safe-a
 .ws26-coverage{position:absolute;z-index:5;left:12px;bottom:68px;max-width:min(420px,calc(100vw - 90px));font-size:10px;color:#d4eee9;background:#10263be0;padding:6px 9px;border-radius:8px;pointer-events:none;line-height:1.4}
 body.worldscope-immersive .ws26-coverage{bottom:calc(env(safe-area-inset-bottom,0px) + 64px)}
 @media(max-width:450px){.ws26-coverage{left:8px;max-width:220px;font-size:9px;bottom:57px}}
+
+#ws26-footprint-toggle{position:absolute;z-index:10;bottom:175px;left:11px;background:#102c40e9;color:#ffe2b2;border:1px solid #d1b88d;border-radius:10px;padding:9px 11px;min-height:40px;font:700 11px system-ui;cursor:pointer}
+#ws26-footprint-toggle:focus-visible{outline:3px solid #ffdb9c;outline-offset:2px}
+body.worldscope-immersive #ws26-footprint-toggle{bottom:calc(175px + env(safe-area-inset-bottom,0px))}
+@media(max-width:650px){#ws26-footprint-toggle{left:8px;bottom:calc(168px + env(safe-area-inset-bottom,0px))}}
