@@ -9,8 +9,15 @@ const C={stone:[.71,.72,.75],cream:[.93,.85,.70],roof:[.37,.55,.77],navy:[.13,.2
 const existingNames=new Set(['TRON Lightcycle / Run','Space Mountain','Spaceship Earth','Tower of Terror']);
 let catalog=[],mapRef=null,enabled=false,layer=null,viewer=null,modelCount=0,drawCount=0;
 const valid=e=>Number.isFinite(e?.lon)&&Number.isFinite(e?.lat)&&e.lon>-81.625&&e.lon<-81.49&&e.lat>28.33&&e.lat<28.45;
-function modelType(name){
+function modelType(name,category){
  const n=name.toLowerCase();
+ if(category==='Shops'){
+  if(/emporium|jewel|bakery|clothier|hollywood|keystone|mickey|celebrity|crystal arts/.test(n))return 'victorian';
+  if(/mitsukoshi|japan|tea caddy|fjording|kringle|house of good fortune/.test(n))return 'pagoda';
+  if(/market|souk|al-magr|bazaar|spice|trading|plaza|pirate|ronto/.test(n))return 'bazaar';
+  if(/creation|world of disney|droid|star traders|gateway|xandar|tomorrowland/.test(n))return 'modern';
+  return 'storefront';
+ }
  if(/railroad|wildlife express|runaway railway/.test(n))return 'rail';
  if(/seven dwarfs|big thunder|slinky dog|barnstormer|expedition everest|rock ’n’ roller/.test(n))return 'coaster';
  if(/guardians|space|test track|peoplemover|buzz lightyear|imagination/.test(n))return 'future';
@@ -21,13 +28,13 @@ function modelType(name){
  if(/frozen|remy|small world|peter pan|haunted mansion|under the sea|winnie the pooh|toy story|soarin|nemo/.test(n))return 'story';
  return 'pavilion';
 }
-function getItems(){return (typeof items!=='undefined'&&Array.isArray(items)?items:[]).filter(e=>e.category==='Rides')}
+function getItems(){return (typeof items!=='undefined'&&Array.isArray(items)?items:[]).filter(e=>e.category==='Rides'||e.category==='Shops')}
 function refreshCatalog(){
  const old=el('ws25-ride-choice')?.value;
- catalog=getItems().map(e=>({id:String(e.id),name:e.name,park:e.park,lat:e.lat,lon:e.lon,type:modelType(e.name),mapped:valid(e),duplicate:existingNames.has(e.name)}));
+ catalog=getItems().map(e=>({id:String(e.id),name:e.name,park:e.park,lat:e.lat,lon:e.lon,type:modelType(e.name,e.category),category:e.category,mapped:valid(e),duplicate:existingNames.has(e.name)}));
  const select=el('ws25-ride-choice');
  if(select){select.replaceChildren();for(const r of catalog){const o=document.createElement('option');o.value=r.id;o.textContent=r.name+(r.mapped?' · Map placed':' · Preview only');select.append(o)}if(catalog.some(x=>x.id===old))select.value=old;}
- const count=el('ws25-model-count');if(count)count.textContent=`${catalog.length} concept meshes · ${catalog.filter(x=>x.mapped).length} mapped positions`;
+ const count=el('ws25-model-count');if(count)count.textContent=`${catalog.filter(x=>x.category==="Rides").length} rides + ${catalog.filter(x=>x.category==="Shops").length} shops · ${catalog.filter(x=>x.mapped).length} located`;
  updatePicked();return catalog;
 }
 function palette(seed){const h=Array.from(String(seed)).reduce((n,c)=>((n*31+c.charCodeAt(0))>>>0),7);
@@ -109,6 +116,50 @@ function buildRide(type,seed){
    box(0,0,2,18,12,7,C.earth);roof(0,0,9,19,13,8,a);
    for(let i=0;i<8;i++){const x=-18+i*5;box(x,-15,0,3,2,4,C.stone)}break;
   }
+  case 'victorian':{
+   // Layered Victorian-era Main Street shop facade, illustrative rather than surveyed.
+   box(0,0,0,35,21,11,C.cream);box(0,2,11,34,18,13,C.cream);
+   box(0,0,24,36,23,2,a);roof(0,0,26,36,24,8,b);
+   for(const x of [-13,-7,-1,5,11]){
+    box(x,-11,2,4,1,7,C.navy);box(x,-11,13,4,1,7,C.navy);
+    box(x,-11.7,9,5,2,1,C.gold);box(x,-12,20,5,2,1,C.gold);
+    rod(x-2.6,-12,22,x+2.6,-12,22,.25,C.white);
+   }
+   box(0,-13,1,9,1,10,C.red);box(0,-12.4,11,33,3,2,a);
+   for(const x of [-14,-6,2,10])box(x,-13.2,30,2,1,2,C.gold);
+   break;
+  }
+  case 'pagoda':{
+   box(0,0,0,37,28,9,C.earth);box(0,0,9,31,24,12,C.cream);
+   for(let i=0;i<3;i++){
+    const w=40-i*8,d=31-i*6,z=9+i*9;
+    box(0,0,z,w,d,2,C.red);
+    cone(0,0,z+2,Math.max(w,d)*.57,Math.max(w,d)*.37,6,C.roof,4);
+   }
+   for(const x of [-13,-6,1,8,15])for(const z of [2,11])box(x,-14.7,z,3,1,6,C.navy);
+   cone(0,0,41,3,0,7,C.gold,12);break;
+  }
+  case 'bazaar':{
+   box(0,0,0,42,29,11,C.earth);box(-12,2,11,16,21,8,C.cream);box(9,2,11,20,21,11,C.cream);
+   for(let i=0;i<7;i++){const x=-18+i*6;box(x,-15,0,4,1,9,C.navy);box(x,-17,10,5,3,2,i%2?a:b)}
+   cone(-11,1,20,9,0,10,C.gold,16);cone(10,1,22,9,0,13,C.red,16);
+   for(const x of [-23,23])cone(x,8,0,3,2,19,C.stone,12);
+   break;
+  }
+  case 'modern':{
+   box(0,0,0,44,31,9,C.stone);box(0,0,9,37,25,14,C.white);
+   box(0,-14,2,35,2,14,C.navy);box(0,0,24,44,34,4,a);
+   for(let x=-17;x<=17;x+=7)box(x,-16,1,1,2,21,C.teal);
+   for(let i=0;i<7;i++)rod(-22+i*7,-16,28,-18+i*6,-12,31,.45,C.gold);
+   break;
+  }
+  case 'storefront':{
+   box(0,0,0,38,26,11,C.earth);box(0,0,11,33,25,12,C.cream);
+   roof(0,0,23,37,29,11,a);
+   for(let i=-2;i<=2;i++){box(i*6,-13.5,3,4,1,7,C.navy);box(i*6,-14,10,5,2,1,b)}
+   box(0,-15.2,12,24,2,3,C.gold);for(const x of [-14,14])cone(x,-8,0,2,1,21,C.stone);
+   break;
+  }
   case 'story':{
    box(0,0,0,46,30,6,C.stone);
    box(-11,0,6,20,27,15,C.cream);box(11,0,6,20,27,12,C.cream);
@@ -152,7 +203,7 @@ function addMapModels(){if(!enabled||!catalog.length||typeof map==='undefined'||
  try{layer=createRideLayer();map.addLayer(layer);modelCount=catalog.filter(x=>x.mapped&&!x.duplicate).length;return true}catch(e){console.warn('Ride model renderer failed',e);return false}
 }
 function toggle(on){enabled=!!on;if(enabled){attach();addMapModels()}else removeMapModels();purgeGrayExtrusions()}
-function purgeGrayExtrusions(){if(typeof map==='undefined'||!map||!map.isStyleLoaded?.())return 0;let removed=0;for(const l of (map.getStyle?.()?.layers||[]).slice()){if(l.type!=='fill-extrusion')continue;try{if(map.getLayer?.(l.id)){map.removeLayer(l.id);removed++}}catch(e){try{map.setLayoutProperty(l.id,'visibility','none')}catch{}}}return removed}
+function purgeGrayExtrusions(){if(typeof map==='undefined'||!map||!map.isStyleLoaded?.())return 0;let removed=0;for(const l of (map.getStyle?.()?.layers||[]).slice()){if(l.type!=='fill-extrusion'||l.id==='worldscope-v26-architecture')continue;try{if(map.getLayer?.(l.id)){map.removeLayer(l.id);removed++}}catch(e){try{map.setLayoutProperty(l.id,'visibility','none')}catch{}}}return removed}
 function attach(){if(typeof map==='undefined'||!map||map===mapRef)return;mapRef=map;
  map.on('load',()=>{purgeGrayExtrusions();if(enabled)addMapModels()});map.on('style.load',()=>{purgeGrayExtrusions();if(enabled)addMapModels()});
  map.on('styledata',purgeGrayExtrusions);map.on('idle',purgeGrayExtrusions);
@@ -204,12 +255,12 @@ function openStudio(){const container=el(S);if(!container)return;container.hidde
  if(!viewer){const canvas=el('ws25-ride-canvas');viewer=createViewer(canvas);const ride=selected();if(ride)viewer.setRide(ride)}viewer.start();}
 function closeStudio(){if(el(S))el(S).hidden=true;viewer?.stop()}
 function drawControls(){if(el('ws25-open'))return;const wrap=document.querySelector('#map .mapwrap');if(!wrap)return;
- const open=document.createElement('button');open.type='button';open.id='ws25-open';open.textContent='🎡 Ride models';open.addEventListener('click',openStudio);wrap.append(open);
- const aside=document.createElement('aside');aside.id=S;aside.hidden=true;aside.setAttribute('role','dialog');aside.setAttribute('aria-label','Experimental 3D ride model gallery');
- const title=document.createElement('div');title.className='ws25-title';const h=document.createElement('strong');h.textContent='Ride Model Studio';const x=document.createElement('button');x.type='button';x.textContent='✕';x.setAttribute('aria-label','Close ride gallery');x.addEventListener('click',closeStudio);title.append(h,x);
- const note=document.createElement('p');note.textContent='Original 3D concept studies, not exact building replicas or navigational entrances. Tap a ride to inspect.';
+ const open=document.createElement('button');open.type='button';open.id='ws25-open';open.textContent='🏬 3D buildings';open.addEventListener('click',openStudio);wrap.append(open);
+ const aside=document.createElement('aside');aside.id=S;aside.hidden=true;aside.setAttribute('role','dialog');aside.setAttribute('aria-label','Experimental 3D ride and shop architecture gallery');
+ const title=document.createElement('div');title.className='ws25-title';const h=document.createElement('strong');h.textContent='Ride & Shop Architecture Studio';const x=document.createElement('button');x.type='button';x.textContent='✕';x.setAttribute('aria-label','Close ride gallery');x.addEventListener('click',closeStudio);title.append(h,x);
+ const note=document.createElement('p');note.textContent='Original 3D concept studies, not exact building replicas or navigational entrances. Select a ride or shop to inspect.';
  const count=document.createElement('small');count.id='ws25-model-count';count.textContent='Loading directory…';
- const select=document.createElement('select');select.id='ws25-ride-choice';select.setAttribute('aria-label','Choose a ride to preview');select.addEventListener('change',updatePicked);
+ const select=document.createElement('select');select.id='ws25-ride-choice';select.setAttribute('aria-label','Choose a ride or shop to preview');select.addEventListener('change',updatePicked);
  const canvas=document.createElement('canvas');canvas.id='ws25-ride-canvas';canvas.width=350;canvas.height=270;canvas.setAttribute('aria-label','Rotating WebGL model preview');
  const status=document.createElement('p');status.id='ws25-ride-status';const fly=document.createElement('button');fly.type='button';fly.id='ws25-ride-fly';fly.textContent='View location in Color 3D';fly.addEventListener('click',()=>{const r=selected();if(!r?.mapped)return;closeStudio();if(window.WorldscopeV23?.setMapView)window.WorldscopeV23.setMapView(true);toggle(true);if(typeof map!=='undefined'&&map)map.flyTo({center:[r.lon,r.lat],zoom:18.4,pitch:59,bearing:-18,duration:800})});
  aside.append(title,note,count,select,canvas,status,fly);wrap.append(aside);
