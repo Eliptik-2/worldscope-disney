@@ -1,0 +1,11 @@
+import {readFileSync,writeFileSync,mkdirSync} from "node:fs";
+import {join} from "node:path";
+import {prepare} from "./prepare-buildings.mjs";
+const [buildings,parts,directory,out]=process.argv.slice(2);
+if(!buildings||!parts||!directory||!out)throw Error("Usage: node run.mjs buildings.geojson parts.geojson data.json output-directory");
+const load=p=>JSON.parse(readFileSync(p,"utf8"));
+const {features,report}=prepare(load(buildings),load(parts),load(directory));
+mkdirSync(out,{recursive:true});
+writeFileSync(join(out,"architecture.geojson"),JSON.stringify(features));
+writeFileSync(join(out,"coverage.json"),JSON.stringify(report,null,2));
+console.log(JSON.stringify(report.counts,null,2));
