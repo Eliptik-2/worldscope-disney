@@ -176,11 +176,11 @@ function builder(){
   case 'castle':{
    // Original reference-inspired reconstruction; dimensions and individual facade details are approximate.
    const stone=[.71,.72,.74],shade=[.57,.60,.65],pink=[.96,.78,.74],cream=[.98,.91,.82],blue=[.16,.33,.67],blue2=[.25,.47,.82],gold=[.99,.77,.30],glass=[.10,.19,.29];
-   const trim=(x,y,z,r,c)=>cone(x,y,z,r,r,.30,c,48);
+   const trim=(x,y,z,r,c)=>cone(x,y,z,r,r,.30,c,32);
    function arch(x,y,z,w,h,depth,c){ // pointed Gothic opening, not a rectangular painted window
     const rise=h-w*.62;
     cube(x-w*.55,y,z,w*.17,depth,rise,c);cube(x+w*.55,y,z,w*.17,depth,rise,c);
-    for(let i=0;i<20;i++){const a=i/20*Math.PI,b=(i+1)/20*Math.PI;
+    for(let i=0;i<12;i++){const a=i/12*Math.PI,b=(i+1)/12*Math.PI;
      const px=x+w*.55*Math.cos(a),pz=z+rise+w*.69*Math.sin(a),qx=x+w*.55*Math.cos(b),qz=z+rise+w*.69*Math.sin(b);
      rod(px,y,pz,qx,y,qz,w*.085,c,6);
     }
@@ -190,15 +190,15 @@ function builder(){
     rod(x,y-.32,z,x,y-.32,z+h-w*.5,.09,cream,5);
    }
    function turret(x,y,z,r,wall,roofH,tint=stone){
-    cone(x,y,z,r,r*.84,wall,tint,48);
+    cone(x,y,z,r,r*.84,wall,tint,32);
     for(let i=1;i<Math.floor(wall/3.3);i++)trim(x,y,z+i*3.3,r*(1-.16*i*3.3/wall)+.025,shade);
     trim(x,y,z+.5,r*1.07,cream);
-    cone(x,y,z+wall-.8,r*.83,r*1.08,.8,cream,48);
+    cone(x,y,z+wall-.8,r*.83,r*1.08,.8,cream,32);
     trim(x,y,z+wall,r*1.11,gold);
     // curved, tapered roof with smooth normals and restrained alternating shingle bands
-    const rings=11;
+    const rings=9;
     for(let k=0;k<rings;k++){const u=k/rings,v=(k+1)/rings,rad=t=>r*1.13*Math.pow(1-t,1.30)+.045;
-     cone(x,y,z+wall+u*roofH,rad(u),rad(v),roofH/rings,k%4===0?blue2:blue,48);
+     cone(x,y,z+wall+u*roofH,rad(u),rad(v),roofH/rings,k%4===0?blue2:blue,32);
     }
     for(let i=0;i<8;i++){const a=i*Math.PI/4;const X=x+Math.cos(a)*r*.91,Y=y+Math.sin(a)*r*.91;
      rod(X,Y,z+wall*.35,X,Y,z+wall*.73,.085,cream,5);
