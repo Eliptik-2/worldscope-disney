@@ -35,6 +35,7 @@ jobs:
           node --test tests/worldscope-v24.test.cjs
           node --test tests/worldscope-v25.test.cjs
           node --test tests/worldscope-v26.test.cjs
+          node --test tests/worldscope-v29.test.cjs
           node --test tests/worldscope-v21.test.cjs
           node --test tests/worldscope-v22.test.cjs
           node --test tests/worldscope-v18.test.cjs

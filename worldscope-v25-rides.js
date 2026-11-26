@@ -31,7 +31,7 @@ function modelType(name,category){
 function getItems(){return (typeof items!=='undefined'&&Array.isArray(items)?items:[]).filter(e=>e.category==='Rides'||e.category==='Shops')}
 function refreshCatalog(){
  const old=el('ws25-ride-choice')?.value;
- catalog=getItems().map(e=>({id:String(e.id),name:e.name,park:e.park,lat:e.lat,lon:e.lon,type:modelType(e.name,e.category),category:e.category,mapped:valid(e),duplicate:existingNames.has(e.name)}));
+ catalog=[{id:'ws29-castle',name:'Cinderella Castle',park:'Magic Kingdom',lat:28.4195,lon:-81.5812,type:'castle',category:'Landmarks',mapped:true,duplicate:true},...getItems().map(e=>({id:String(e.id),name:e.name,park:e.park,lat:e.lat,lon:e.lon,type:modelType(e.name,e.category),category:e.category,mapped:valid(e),duplicate:existingNames.has(e.name)}))];
  const select=el('ws25-ride-choice');
  if(select){select.replaceChildren();for(const r of catalog){const o=document.createElement('option');o.value=r.id;o.textContent=r.name+(r.mapped?' · Map placed':' · Preview only');select.append(o)}if(catalog.some(x=>x.id===old))select.value=old;}
  const count=el('ws25-model-count');if(count)count.textContent=`${catalog.filter(x=>x.category==="Rides").length} rides + ${catalog.filter(x=>x.category==="Shops").length} shops · ${catalog.filter(x=>x.mapped).length} located`;
@@ -40,6 +40,9 @@ function refreshCatalog(){
 function palette(seed){const h=Array.from(String(seed)).reduce((n,c)=>((n*31+c.charCodeAt(0))>>>0),7);
  const arr=[C.roof,C.teal,C.red,C.purple,C.gold,C.green];return {a:arr[h%arr.length],b:arr[Math.floor(h/7)%arr.length],h};}
 function buildRide(type,seed){
+ const name=String(seed).toLowerCase();
+ const landmark=/cinderella castle/.test(name)?'castle':/spaceship earth/.test(name)?'sphere':/space mountain/.test(name)?'space':/tron lightcycle/.test(name)?'tron':/tower of terror/.test(name)?'tower':/tree of life/.test(name)?'tree':null;
+ if(landmark&&window.WorldscopeV22?.build){const m=window.WorldscopeV22.build(landmark);return {...m,type,seed,detail:'landmark'};}
  const vertices=[],indices=[];const pal=palette(seed);
  const add=(x,y,z,n,c)=>{const id=vertices.length/9;vertices.push(x,y,z,...n,...c);return id};
  const quad=(a,b,c,d)=>{indices.push(a,b,c,a,c,d)};
@@ -62,8 +65,55 @@ function buildRide(type,seed){
   for(let i=0;i<steps;i++){const a=i*2*Math.PI/steps,b=(i+1)*2*Math.PI/steps;
    const p=(X,Y,Z,t)=>{const vx=Math.cos(t)*nx+Math.sin(t)*bx,vy=Math.cos(t)*ny+Math.sin(t)*by,vz=Math.cos(t)*nz+Math.sin(t)*bz;return add(X+vx*r,Y+vy*r,Z+vz*r,[vx,vy,vz],col)};
    quad(p(x,y,z,a),p(x,y,z,b),p(X,Y,Z,b),p(X,Y,Z,a));}}
- function roof(cx,cy,z,w,d,height,shade){box(cx,cy,z,w,d,1,shade);for(const x of [-1,1])cone(cx+x*w*.25,cy,z+1,w*.28,0,height,shade,4)}
+ function roof(cx,cy,z,w,d,height,shade){box(cx,cy,z,w,d,.45,shade);gable(cx,cy,z+.45,w,d,height,shade)}
  function foliage(x,y,z,r){sphere(x,y,z,r,C.green,9,13,1,1,.78);cone(x,y,z-r*1.1,1.6,1.1,r*1.1,C.earth)}
+ // Named attractions use distinct reference-inspired silhouettes and facade details.
+ const brick=[.63,.42,.32],ivory=[.95,.87,.72],glass=[.10,.19,.28],rust=[.71,.36,.20],snow=[.94,.96,.98],steel=[.53,.60,.65];
+ function bands(x,y,z,w,d,h,co){for(let k=0;k<h;k+=2.1)box(x,y,z+k,w+.13,d+.13,.12,co)}
+ function facade(x,y,z,w,h,n=7,co=ivory){for(let i=0;i<n;i++){const X=x-w/2+(i+.5)*w/n;for(let k=2;k<h-2;k+=4){box(X,y,z+k,Math.min(2,w/n*.65),.22,2.6,glass);box(X,y-.19,z+k+2.5,Math.min(2.4,w/n*.8),.38,.24,co);box(X,y-.22,z+k+1.2,.10,.26,2.4,co)}}}
+ function gable(x,y,z,w,d,h,c){const p=[[-w/2,-d/2,0],[w/2,-d/2,0],[w/2,d/2,0],[-w/2,d/2,0],[0,-d/2,h],[0,d/2,h]].map(q=>[q[0]+x,q[1]+y,q[2]+z]);for(const ids of [[0,4,5,3],[1,2,5,4],[0,1,4,4],[3,5,2,2]]){const a=p[ids[0]],b=p[ids[1]],d0=p[ids[2]],n=norm((b[1]-a[1])*(d0[2]-a[2])-(b[2]-a[2])*(d0[1]-a[1]),(b[2]-a[2])*(d0[0]-a[0])-(b[0]-a[0])*(d0[2]-a[2]),(b[0]-a[0])*(d0[1]-a[1])-(b[1]-a[1])*(d0[0]-a[0]));quad(...ids.map(i=>add(...p[i],n,c)))}}
+ function rock(x,y,z,r,h,co,seed=0){const sides=19,levels=8;const at=(j,i)=>{const a=i*2*Math.PI/sides, t=j/levels, rr=r*(1-.83*t)*(.86+.14*Math.sin(i*2.9+j*.8+seed)+.07*Math.cos(i*4.7+j));return [x+rr*Math.cos(a)+t*r*.19,y+rr*Math.sin(a),z+h*t+(j===0?0:Math.sin(i*2.3+j)*r*.08)]};for(let j=0;j<levels;j++)for(let i=0;i<sides;i++){const pts=[at(j,i),at(j,(i+1)%sides),at(j+1,(i+1)%sides),at(j+1,i)];const c=co.map(v=>Math.min(1,v*(.8+.17*Math.sin(i*2.7+j)+.15)));quad(...pts.map(p=>add(...p,norm(p[0]-x,p[1]-y,.4),c)))}}
+ function track(fn,c=C.red,n=84){let prev;for(let i=0;i<=n;i++){const p=fn(i/n);if(prev){for(const y of [-.72,.72])rod(prev[0],prev[1]+y,prev[2],p[0],p[1]+y,p[2],.19,c,8);if(i%3===0)rod(p[0],p[1]-.85,p[2],p[0],p[1]+.85,p[2],.17,steel,6)}if(i%7===0){rod(p[0],p[1],1,...p,.28,steel,8)}prev=p}}
+ let bespoke=true;
+ if(/haunted mansion/.test(name)){
+  box(0,0,0,38,26,16,brick);bands(0,0,0,38,26,16,C.stone);box(0,0,16,36,24,2,ivory);gable(0,0,18,38,27,8,C.navy);facade(0,-13.2,0,34,16,7);
+  box(-11,-3,16,12,13,13,brick);gable(-11,-3,29,13,14,7,C.navy);facade(-11,-9.6,16,11,13,3);
+  box(11,5,16,10,12,9,brick);gable(11,5,25,11,13,6,C.navy);
+  for(const x of [-17,-10,10,17]){box(x,8,19,2.8,3,9,brick);box(x,8,28,3.5,3.6,.65,ivory)}
+  box(0,-15,0,9,5,9,ivory);box(0,-18,0,5,.3,7,glass);gable(0,-15,9,10,5,5,C.navy);
+ }else if(/expedition everest|big thunder|seven dwarfs/.test(name)){
+  const ever=/everest/.test(name),mine=/seven dwarfs/.test(name),c=ever?[.49,.49,.47]:mine?[.52,.48,.34]:rust;
+  box(0,0,0,55,41,1.2,C.earth);for(let i=0;i<10;i++){const a=i*2.4,r=7+(i%3)*3,h=(ever?20:12)+(i%4)*4;rock(Math.cos(a)*17,Math.sin(a)*12,1,r,h,c,i);if(ever)rock(Math.cos(a)*17+1,Math.sin(a)*12,h*.70,r*.55,h*.36,snow,i)}
+  track(t=>[26*Math.cos(t*2*Math.PI),17*Math.sin(t*2*Math.PI),5+(ever?13:8)*Math.pow(Math.sin(t*Math.PI),2)+3*Math.sin(t*6*Math.PI)**2],mine?C.earth:C.red,112);
+  box(-16,-16,1,13,8,6,brick);gable(-16,-16,7,14,9,4,C.navy);
+ }else if(/slinky dog|barnstormer/.test(name)){
+  box(0,0,0,54,36,1,C.green);
+  track(t=>[27*Math.cos(2*Math.PI*t),15*Math.sin(4*Math.PI*t),5+10*Math.sin(3*Math.PI*t)**2],C.red,128);
+  for(let i=0;i<6;i++){const x=-16+i*5;box(x,0,6,4,3,2,C.gold);for(const y of [-1.5,1.5])sphere(x,y,6,.8,C.navy,7,10)}
+  sphere(-19,0,9,3,C.earth,16,24,1.2,.75,1);box(17,-10,1,13,9,8,C.cream);gable(17,-10,9,14,10,4,C.roof);
+ }else if(/guardians of the galaxy/.test(name)){
+  box(0,7,0,59,39,21,[.32,.38,.46]);box(0,-13,0,32,20,14,steel);box(0,-13,14,35,22,1.2,C.white);for(let i=0;i<12;i++){box(-27+i*5, -12,0,.5,.5,21,C.navy);box(-27+i*5,26,0,.5,.5,21,C.navy)}
+  for(const side of [-1,1]){box(side*10,-20,4,8,4,9,glass);rod(side*16,-24,1,side*10,-8,15,.75,C.teal,12);box(side*14,-16,12,4,17,1,C.white)}box(0,-24,1,10,.7,8,glass);
+ }else if(/pirates of the caribbean/.test(name)){
+  box(0,2,0,44,30,12,ivory);bands(0,2,0,44,30,12,brick);for(const x of [-18,-9,0,9,18]){box(x,-13.4,1,4,.3,6,glass);for(let i=0;i<14;i++){const a=i*Math.PI/14,b=(i+1)*Math.PI/14;rod(x+2*Math.cos(a),-13.7,7+2*Math.sin(a),x+2*Math.cos(b),-13.7,7+2*Math.sin(b),.19,brick,6)}box(x,-13,12,3,3,2,ivory)}
+  for(const x of [-17,17]){box(x,6,12,9,10,10,ivory);gable(x,6,22,10,11,5,rust)}box(0,-17,0,12,7,7,brick);
+ }else if(/millennium falcon|rise of the resistance/.test(name)){
+  box(0,0,0,47,35,7,steel);for(let i=0;i<8;i++)rock(-24+i*7,15,3,6,11+(i%4)*4,[.48,.45,.41],i);
+  if(/falcon/.test(name)){sphere(0,-4,10,15,steel,22,48,1,1,.20);for(const x of [-6,6])box(x,-17,9,6,14,3,steel);rod(12,-3,11,21,-9,11,2.5,steel,18);box(20,-10,10,7,5,3,glass);for(let i=0;i<16;i++){const a=i*Math.PI/8;rod(5*Math.cos(a),-4+5*Math.sin(a),13,13*Math.cos(a),-4+13*Math.sin(a),11.8,.20,C.navy,6)}}
+  else {box(0,-8,7,27,18,13,steel);facade(0,-17.1,7,26,13,5);for(const x of [-11,11])rod(x,-20,2,x,-8,21,.6,C.navy)}
+ }else if(/runaway railway/.test(name)){
+  box(0,2,0,37,26,14,[.87,.65,.45]);box(0,-4,14,27,17,6,ivory);gable(0,-4,20,28,18,8,C.green);
+  for(const x of [-15,15]){box(x,-5,0,8,15,19,brick);gable(x,-5,19,9,16,7,C.green);facade(x,-12.7,0,7,18,2)}
+  facade(0,-9.2,0,22,14,5);box(0,-14,0,9,5,7,glass);box(0,-15,8,18,4,1.5,C.gold);
+ }else if(/small world|peter pan|frozen|remy/.test(name)){
+  const frozen=/frozen/.test(name),remy=/remy/.test(name),small=/small world/.test(name),co=small?C.white:frozen?ivory:remy?[.83,.72,.63]:[.82,.64,.43];box(0,0,0,42,27,12,co);
+  for(let i=0;i<7;i++){const x=-18+i*6,h=10+(i%3)*5;box(x,-9,0,5.5,9,h,co);facade(x,-13.7,0,5,h,2);if(small){cone(x,-9,h,3.2,.2,6,i%2?C.gold:C.white,12)}else{gable(x,-9,h,6.1,10,6,frozen?C.navy:remy?steel:C.red)}}
+  if(small){box(0,-10,12,9,3,12,C.white);sphere(0,-12,20,3,C.gold,12,24,1,.2,1);rod(0,-12.7,20,0,-12.7,22,.13,C.navy)}
+ }else if(/avatar flight|na.vi river/.test(name)){
+  box(0,0,0,46,32,2,C.green);for(let i=0;i<7;i++){const a=i*2.4;rock(17*Math.cos(a),11*Math.sin(a),2,8+(i%3),15+(i%4)*4,[.38,.41,.35],i);foliage(16*Math.cos(a),12*Math.sin(a),10+(i%4)*3,4)}
+  for(let i=0;i<5;i++){const x=-18+i*8;rock(x,4,24+(i%2)*4,5,8,[.42,.40,.34],i);rod(x,4,24,x+2,2,9,.3,C.green,7)}
+ }else bespoke=false;
+ if(bespoke){if(vertices.length/9>=65535)throw Error('Detailed ride vertex limit');return {vertices:new Float32Array(vertices),indices:new Uint16Array(indices),type,seed,detail:'named'};}
  const v=(pal.h%5)*.5, a=pal.a,b=pal.b;
  switch(type){
   case 'coaster':{
@@ -215,12 +265,12 @@ function updatePicked(){const r=selected(),status=el('ws25-ride-status');if(!sta
  if(viewer&&r)viewer.setRide(r);
  const fly=el('ws25-ride-fly');if(fly)fly.disabled=!r?.mapped;
 }
-function lookAt(matrixRot){const t=matrixRot;const c=Math.cos(t),s=Math.sin(t);
+function lookAt(matrixRot,aspect=1.18){const t=matrixRot;const c=Math.cos(t),s=Math.sin(t);
  // Perspective from a fixed camera above a slowly rotating turntable.
  const rot=new Float64Array([c,s,0,0,-s,c,0,0,0,0,1,0,0,0,0,1]);
  const tilt=new Float64Array([1,0,0,0,0,.78,.62,0,0,-.62,.78,0,0,0,0,1]);
  const move=new Float64Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,-105,1]);
- const f=1.95,aspect=1.18,n=.1,far=500;
+ const f=1.95,n=.1,far=500;
  const proj=new Float64Array([f/aspect,0,0,0,0,f,0,0,0,0,-(far+n)/(far-n),-1,0,0,-2*far*n/(far-n),0]);
  return mul(proj,mul(move,mul(tilt,rot)));
 }
@@ -231,7 +281,7 @@ function drawSoftwarePreview(ctx,canvas,mesh,angle){
  const project=id=>{
   const n=id*9,x=v[n],y=v[n+1],z=v[n+2];
   const rx=x*c-y*s,ry=x*s+y*c;
-  return {x:w/2+rx*scale,y:h*.76+ry*.32*scale-z*.86*scale,depth:ry*.9+z*.2,r:v[n+6],g:v[n+7],b:v[n+8]};
+  return {x:w/2+rx*scale,y:h*.50+ry*.32*scale-z*.86*scale,depth:ry*.9+z*.2,r:v[n+6],g:v[n+7],b:v[n+8]};
  };
  for(let i=0;i<mesh.indices.length;i+=3){const a=project(mesh.indices[i]),b=project(mesh.indices[i+1]),c=project(mesh.indices[i+2]);
   const area=(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
@@ -242,14 +292,15 @@ function drawSoftwarePreview(ctx,canvas,mesh,angle){
  faces.sort((a,b)=>b.depth-a.depth);
  for(const f of faces){ctx.fillStyle=f.color;ctx.beginPath();ctx.moveTo(f.a.x,f.a.y);ctx.lineTo(f.b.x,f.b.y);ctx.lineTo(f.c.x,f.c.y);ctx.closePath();ctx.fill()}
 }
+function fitGallery(mesh){const v=new Float32Array(mesh.vertices);const lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(let i=0;i<v.length;i+=9)for(let j=0;j<3;j++){lo[j]=Math.min(lo[j],v[i+j]);hi[j]=Math.max(hi[j],v[i+j])}const s=62/Math.max(1,...hi.map((x,j)=>x-lo[j]));for(let i=0;i<v.length;i+=9){v[i]=(v[i]-(lo[0]+hi[0])/2)*s;v[i+1]=(v[i+1]-(lo[1]+hi[1])/2)*s;v[i+2]=(v[i+2]-(lo[2]+hi[2])/2)*s}return {...mesh,vertices:v}}
 function createViewer(canvas){let gl=null,ctx=null,p=null,gpu=null,mesh=null,raf=0,angle=0,active=false,stamp=0;
  try{gl=canvas.getContext('webgl',{alpha:true,antialias:true,preserveDrawingBuffer:true});if(!gl)throw Error('WebGL not supported');p=renderProgram(gl)}
  catch(e){gl=null;ctx=canvas.getContext('2d',{alpha:false});if(!ctx){console.warn('3D viewer disabled',e)}else canvas.setAttribute('aria-label','Rotating software-projected 3D concept; WebGL unavailable')}
  const resize=()=>{const w=Math.max(1,Math.floor(canvas.clientWidth*(Math.min(2,window.devicePixelRatio||1)))),h=Math.max(1,Math.floor(canvas.clientHeight*(Math.min(2,window.devicePixelRatio||1))));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}if(gl)gl.viewport(0,0,w,h)};
- const draw=now=>{if(!active)return;resize();if(gl&&p&&gpu){gl.clearColor(.05,.13,.22,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);paintMesh(gl,p,lookAt(angle),gpu);angle+=.006;}
+ const draw=now=>{if(!active)return;resize();if(gl&&p&&gpu){gl.clearColor(.05,.13,.22,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);paintMesh(gl,p,lookAt(angle,canvas.width/canvas.height),gpu);angle+=.006;}
   else if(ctx&&mesh&&(!stamp||now-stamp>=55)){drawSoftwarePreview(ctx,canvas,mesh,angle);angle+=.028;stamp=now}
   raf=requestAnimationFrame(draw)};
- return {setRide(r){if(!r)return;mesh=buildRide(r.type,r.id+':'+r.name);if(gl&&p){if(gpu)cleanMesh(gl,gpu);gpu=storeMesh(gl,mesh)}angle=.3;stamp=0;if(ctx){resize();drawSoftwarePreview(ctx,canvas,mesh,angle)}},start(){active=true;raf=requestAnimationFrame(draw)},stop(){active=false;cancelAnimationFrame(raf)},dispose(){active=false;cancelAnimationFrame(raf);if(gl&&gpu)cleanMesh(gl,gpu);if(gl&&p)gl.deleteProgram(p.program)},get kind(){return gl?'WebGL':ctx?'software':'unavailable'}};
+ return {setRide(r){if(!r)return;mesh=fitGallery(buildRide(r.type,r.id+':'+r.name));if(gl&&p){if(gpu)cleanMesh(gl,gpu);gpu=storeMesh(gl,mesh)}angle=.3;stamp=0;if(ctx){resize();drawSoftwarePreview(ctx,canvas,mesh,angle)}},start(){active=true;raf=requestAnimationFrame(draw)},stop(){active=false;cancelAnimationFrame(raf)},dispose(){active=false;cancelAnimationFrame(raf);if(gl&&gpu)cleanMesh(gl,gpu);if(gl&&p)gl.deleteProgram(p.program)},get kind(){return gl?'WebGL':ctx?'software':'unavailable'}};
 }
 function openStudio(){const container=el(S);if(!container)return;container.hidden=false;
  if(!viewer){const canvas=el('ws25-ride-canvas');viewer=createViewer(canvas);const ride=selected();if(ride)viewer.setRide(ride)}viewer.start();}
@@ -273,5 +324,5 @@ const oldInit=window.initMap;if(typeof oldInit==='function')window.initMap=funct
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 window.addEventListener('worldscope-ready',()=>{ready();if(enabled){removeMapModels();addMapModels()}});
 document.addEventListener('click',event=>{if(event.target?.closest?.('#ws23-map2d,#ws23-map3d'))queueMicrotask(onModeChange)});
-window.WorldscopeRideAtlas25={buildRide,modelType,refreshCatalog,toggle,createRideLayer,openStudio,closeStudio,get catalog(){return catalog.slice()},purgeGrayExtrusions,get state(){return{total:catalog.length,mapped:catalog.filter(x=>x.mapped).length,additionalMapModels:modelCount,drawCalls:drawCount,active:enabled,viewer:viewer?.kind||null}}};
+window.WorldscopeRideAtlas25={buildRide,fitGallery,modelType,refreshCatalog,toggle,createRideLayer,openStudio,closeStudio,get catalog(){return catalog.slice()},purgeGrayExtrusions,get state(){return{total:catalog.length,mapped:catalog.filter(x=>x.mapped).length,additionalMapModels:modelCount,drawCalls:drawCount,active:enabled,viewer:viewer?.kind||null}}};
 })();

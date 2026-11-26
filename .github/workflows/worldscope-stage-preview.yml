@@ -2,7 +2,7 @@ name: Stage Worldscope test site
 on:
   push:
     branches: [development]
-    paths: ['.github/workflows/worldscope-stage-preview.yml']
+    paths: ['.github/workflows/worldscope-stage-preview.yml', 'worldscope-v23-models.js', 'worldscope-v25-rides.js']
   workflow_dispatch:
 permissions:
   contents: write
@@ -36,7 +36,7 @@ jobs:
           import pathlib, zipfile, shutil, json
           p=pathlib.Path('twin-preview')
           f=p/'index.html'
-          s=f.read_text().replace('Worldscope v2.7','Worldscope v2.8').replace('Worldscope v2.6','Worldscope v2.8')
+          s=f.read_text().replace('Worldscope v2.7','Worldscope v2.9').replace('Worldscope v2.6','Worldscope v2.9')
           f.write_text(s)
           f=p/'manifest.webmanifest'
           m=json.loads(f.read_text());m.update(name='Worldscope Test — Disney Explorer',short_name='Worldscope Test');f.write_text(json.dumps(m))
@@ -49,6 +49,9 @@ jobs:
           f=a/'index.html'; s=f.read_text().replace('Overture Maps</a> · ODbL 1.0.', 'Overture Maps</a> · ODbL 1.0 · <a href="source-data.zip">Source data</a>.')
           f.write_text(s)
           PY
+      - name: Validate upgraded geometry
+        run: |
+          node --test tests/worldscope-v23.test.cjs tests/worldscope-v25.test.cjs tests/worldscope-v29.test.cjs
       - name: Install browser testing
         run: |
           python -m pip install playwright
@@ -66,5 +69,5 @@ jobs:
           git diff --cached --name-only | python -c "import sys; p=sys.stdin.read().splitlines(); assert p and all(x.startswith('preview/') for x in p)"
           git config user.name 'worldscope-preview-bot'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Stage validated Worldscope v2.8 preview'
+          git commit -m 'Stage validated Worldscope v2.9 preview'
           git push origin HEAD:refs/heads/preview-staging

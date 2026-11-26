@@ -35,11 +35,11 @@ function builder(){
  function cone(x,y,z,rBottom,rTop,h,color,steps=20){
   for(let i=0;i<steps;i++){
    const a=2*Math.PI*i/steps,b=2*Math.PI*(i+1)/steps;
-   const sn=normal(Math.cos((a+b)/2),Math.sin((a+b)/2),(rBottom-rTop)/h);
-   const i0=point(x+rBottom*Math.cos(a),y+rBottom*Math.sin(a),z,sn,color);
-   const i1=point(x+rBottom*Math.cos(b),y+rBottom*Math.sin(b),z,sn,color);
-   const i2=point(x+rTop*Math.cos(b),y+rTop*Math.sin(b),z+h,sn,color);
-   const i3=point(x+rTop*Math.cos(a),y+rTop*Math.sin(a),z+h,sn,color);
+   const na=normal(Math.cos(a),Math.sin(a),(rBottom-rTop)/h),nb=normal(Math.cos(b),Math.sin(b),(rBottom-rTop)/h);
+   const i0=point(x+rBottom*Math.cos(a),y+rBottom*Math.sin(a),z,na,color);
+   const i1=point(x+rBottom*Math.cos(b),y+rBottom*Math.sin(b),z,nb,color);
+   const i2=point(x+rTop*Math.cos(b),y+rTop*Math.sin(b),z+h,nb,color);
+   const i3=point(x+rTop*Math.cos(a),y+rTop*Math.sin(a),z+h,na,color);
    quad(i0,i1,i2,i3)
   }
  }
@@ -55,7 +55,7 @@ function builder(){
   const raw=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]].map(v=>normal(...v));
   let faces=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
   let cur=faces.map(f=>f.map(i=>raw[i]));
-  for(let depth=0;depth<3;depth++){
+  for(let depth=0;depth<4;depth++){
    let next=[];
    for(const [a,b,c] of cur){const ab=normal(a[0]+b[0],a[1]+b[1],a[2]+b[2]),bc=normal(b[0]+c[0],b[1]+c[1],b[2]+c[2]),ca=normal(c[0]+a[0],c[1]+a[1],c[2]+a[2]);
     next.push([a,ab,ca],[ab,b,bc],[ca,bc,c],[ab,bc,ca])
@@ -90,7 +90,7 @@ function builder(){
  }
  // A multifaceted rock has uneven rock faces and a pointed underside, never a spherical blob.
  function crag(x,y,z,rad,h,seed,c){
-  const n=11,rings=[{z:-h*.65,r:.07},{z:-h*.30,r:.48},{z:0,r:1},{z:h*.35,r:.88},{z:h*.7,r:.42},{z:h*.83,r:.10}];
+  const n=27,rings=[{z:-h*.65,r:.07},{z:-h*.30,r:.48},{z:0,r:1},{z:h*.35,r:.88},{z:h*.7,r:.42},{z:h*.83,r:.10}];
   const rows=rings.map((level,k)=>Array.from({length:n},(_,i)=>{const a=(i/n)*Math.PI*2;
    const irregular=.82+.14*Math.sin((i+1)*7.1+seed)+.13*Math.cos(i*13.3+seed*3+k*.3);
    return [x+Math.cos(a)*rad*level.r*irregular,y+Math.sin(a)*rad*level.r*irregular,z+level.z+Math.sin(i*2.13+seed+k)*rad*.04]}));
@@ -174,37 +174,69 @@ function builder(){
   }
   case 'streetwest':case 'streeteast':{storefront(type==='streetwest'?'west':'east');break;}
   case 'castle':{
-   // Original interpretation: nested masonry wings, stair-step buttresses,
-   // 16 blue-roofed turrets and layered fairytale spires. Not a survey model.
-   cube(0,0,0,37,22,15,color.ivory);
-   cube(-10,5,13,18,18,11,color.ivory);
-   cube(11,5,13,18,17,12,color.ivory);
-   cube(0,8,17,18,14,18,color.ivory);
-   for(let x of [-18,-10,-2,6,14,19]){cube(x,-11.6,15,2.1,2.2,2.1,color.ivory);}
-   for(let x of [-13,-7,7,13])for(let z of [5,12])windowArch(x,-11.45,z,1.8,3.5);
-   cube(0,-12,0,6,2.5,13,color.dark);
-   for(const [x,y,z,h,r] of [
-    [-18,-10,0,31,3.4],[18,-10,0,35,3.7],[-18,10,0,33,3.3],[18,10,0,37,3.8],
-    [-12,0,13,23,2.8],[12,0,13,26,3],[-9,11,16,29,3.2],[9,11,16,32,3.1],
-    [0,4,25,29,4.3],[-5,-4,18,19,2.4],[5,-4,18,21,2.5],
-    [-24,3,0,20,2.2],[24,3,0,22,2.3],[-24,-8,0,17,2],[24,-8,0,18,2]
-   ])spire(x,y,z,h,r);
-   for(let x of [-15,0,15]){
-    rod(x,-13,15,x,-13,19,.32,color.gold,6);
+   // Original reference-inspired reconstruction; dimensions and individual facade details are approximate.
+   const stone=[.71,.72,.74],shade=[.57,.60,.65],pink=[.96,.78,.74],cream=[.98,.91,.82],blue=[.16,.33,.67],blue2=[.25,.47,.82],gold=[.99,.77,.30],glass=[.10,.19,.29];
+   const trim=(x,y,z,r,c)=>cone(x,y,z,r,r,.30,c,48);
+   function arch(x,y,z,w,h,depth,c){ // pointed Gothic opening, not a rectangular painted window
+    const rise=h-w*.62;
+    cube(x-w*.55,y,z,w*.17,depth,rise,c);cube(x+w*.55,y,z,w*.17,depth,rise,c);
+    for(let i=0;i<20;i++){const a=i/20*Math.PI,b=(i+1)/20*Math.PI;
+     const px=x+w*.55*Math.cos(a),pz=z+rise+w*.69*Math.sin(a),qx=x+w*.55*Math.cos(b),qz=z+rise+w*.69*Math.sin(b);
+     rod(px,y,pz,qx,y,qz,w*.085,c,6);
+    }
    }
+   function lancet(x,y,z,w,h){cube(x,y+.10,z,w,.32,h-w*.62,glass);for(let i=0;i<12;i++){const a=i*Math.PI/12,b=(i+1)*Math.PI/12;const p=[x+w*.5*Math.cos(a),y,z+h-w*.62+w*.62*Math.sin(a)],q=[x+w*.5*Math.cos(b),y,z+h-w*.62+w*.62*Math.sin(b)];quad(add(x,y,z+h-w*.62,[0,-1,0],glass),add(...p,[0,-1,0],glass),add(...q,[0,-1,0],glass),add(x,y,z+h-w*.62,[0,-1,0],glass))}
+    arch(x,y-.17,z,w,h,.48,cream);cube(x,y-.39,z-.2,w*1.4,.55,.23,cream);
+    rod(x,y-.32,z,x,y-.32,z+h-w*.5,.09,cream,5);
+   }
+   function turret(x,y,z,r,wall,roofH,tint=stone){
+    cone(x,y,z,r,r*.84,wall,tint,48);
+    for(let i=1;i<Math.floor(wall/3.3);i++)trim(x,y,z+i*3.3,r*(1-.16*i*3.3/wall)+.025,shade);
+    trim(x,y,z+.5,r*1.07,cream);
+    cone(x,y,z+wall-.8,r*.83,r*1.08,.8,cream,48);
+    trim(x,y,z+wall,r*1.11,gold);
+    // curved, tapered roof with smooth normals and restrained alternating shingle bands
+    const rings=11;
+    for(let k=0;k<rings;k++){const u=k/rings,v=(k+1)/rings,rad=t=>r*1.13*Math.pow(1-t,1.30)+.045;
+     cone(x,y,z+wall+u*roofH,rad(u),rad(v),roofH/rings,k%4===0?blue2:blue,48);
+    }
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;const X=x+Math.cos(a)*r*.91,Y=y+Math.sin(a)*r*.91;
+     rod(X,Y,z+wall*.35,X,Y,z+wall*.73,.085,cream,5);
+    }
+    const rr=r*.93; lancet(x,y-rr-.04,z+wall*.40,Math.min(r*.48,1.2),Math.min(wall*.29,3.8));
+    cone(x,y,z+wall+roofH,.20,.06,1.1,gold,12);ball(x,y,z+wall+roofH+1.14,.22,gold,7,10);
+   }
+   // Split gateway with a real open central passage; stepped plinth and side wings.
+   cube(-12,0,0,17,24,13,stone);cube(12,0,0,17,24,13,stone);
+   cube(0,6,0,10,12,12,stone);cube(0,-1,11,8,14,3,stone);
+   for(let k=0;k<8;k++){const t=k/8;const w=7.1*(1-t*.80);cube(0,-9.6,6.8+k*.53,8-w,3.2,.55,stone); /* centre remains open below the arch */
+   }
+   arch(0,-12.4,0,6.2,11.5,1.0,cream);
+   for(const x of [-13.8,-8.2,8.2,13.8]){cube(x,-12.55,0,1.05,1.1,12.7,shade);lancet(x,-13.05,3.5,1.65,4.5)}
+   for(const x of [-19.5,-12.5,-5.5,5.5,12.5,19.5])for(const y of [-12.2,11.8])cube(x,y,13,2.2,1.7,1.8,cream);
+   for(const z of [2,5,8,11])for(const x of [-14,14])cube(x,-12.17,z,12,.22,.12,shade);
+   cube(0,3,14,25,19,15,pink);cube(-8,4,27,10,12,8,pink);cube(7,5,27,10,12,10,pink);
+   cube(0,6,28,11,11,12,cream);cube(0,2,16,16,13,15,pink);
+   for(const z of [14,23,29])cube(0,2,z,26-(z-14)*.55,20-(z-14)*.40,.55,cream);
+   for(const z of [18,24])for(const x of [-8,-4,0,4,8])lancet(x,-6.1,z,1.1,3.6);
+   for(const x of [-3,0,3])lancet(x,.3,33,1.3,4.0);
+   // Distinct asymmetric towers: central high spire, smaller rose wings, low gate turrets.
+   for(const p of [[-18,-10,0,3.3,18,10,stone],[18,-10,0,3.4,20,12,stone],[-18,10,0,3.5,20,13,stone],[18,10,0,3.7,23,12,stone],[-12,1,12,2.7,16,10,pink],[12,2,12,2.9,20,11,pink],[-8,11,20,2.7,15,12,pink],[9,11,23,2.9,16,11,pink],[0,6,36,3.3,9,12,cream],[-4,-3,23,1.9,12,8,pink],[5,-3,24,2.0,13,8,pink],[-23,3,0,2.4,12,7,stone],[23,3,0,2.4,13,7,stone],[-24,-7,0,1.7,9,6,stone],[24,-7,0,1.8,10,6,stone]])turret(...p);
+   // Frontal clock medallion, gold finials, balconies and masonry rails.
+   ball(0,-6.8,26,1.25,gold,12,24,1,.22,1);ball(0,-7.1,26,.96,blue,12,24,1,.14,1);
+   rod(0,-7.3,26,0,-7.3,26.69,.055,gold,6);rod(0,-7.3,26,.55,-7.3,25.7,.055,gold,6);
+   for(const x of [-8,8]){cube(x,-7.8,16,5,3,.5,cream);for(let i=0;i<7;i++)rod(x-2.2+i*.73,-9.1,16.4,x-2.2+i*.73,-9.1,18.0,.10,cream,5);rod(x-2.4,-9.1,18,x+2.4,-9.1,18,.15,gold,7)}
    break;
   }
   case 'mountain':{
    // White conical roof, twelve exterior ribs and a central spire.
    cone(0,0,0,41,41,5,color.silver,64);
-   cone(0,0,4.5,39,7,38,color.ivory,64);
+   for(let i=0;i<20;i++){const a=i/20,b=(i+1)/20,r=t=>7+32*Math.pow(1-t,1.28);cone(0,0,4.5+38*a,r(a),r(b),38/20,i%5===0?color.silver:color.ivory,96);}
    ring(0,0,5.8,39,color.silver,72,.85);
-   for(let k=0;k<16;k++){
-    const a=k*2*Math.PI/16;
+   for(let k=0;k<32;k++){
+    const a=k*2*Math.PI/32;
     const X=r=>r*Math.cos(a),Y=r=>r*Math.sin(a);
-    rod(X(39),Y(39),6,X(30),Y(30),23,.8,color.silver,8);
-    rod(X(30),Y(30),23,X(15),Y(15),36,.65,color.silver,8);
-    rod(X(15),Y(15),36,X(2.5),Y(2.5),43,.55,color.roof,7);
+    for(let i=0;i<12;i++){const t=i/12,u=(i+1)/12,r=v=>7+32*Math.pow(1-v,1.28);rod(X(r(t)),Y(r(t)),4.5+38*t,X(r(u)),Y(r(u)),4.5+38*u,.36,color.silver,6);}
    }
    cone(0,0,42,4.7,.4,10,color.ivory,24);
    rod(0,0,52,0,0,56,.42,color.gold,7);
@@ -213,12 +245,12 @@ function builder(){
   case 'canopy':{
    // Thin sweeping wave/grid roof, rather than a floating sphere.
    cube(0,0,0,66,27,4,color.dark);
-   const nx=44,ny=18;
+   const nx=76,ny=32;
    function roof(X,Y){const v=Math.max(0,1-(Y/28)**2);return 15+8*v+6*Math.sin((X+48)/96*Math.PI*1.45)*v+3*Math.cos(X/32)*v}
    for(let i=0;i<nx;i++)for(let j=0;j<ny;j++){
     const x0=-49+i*98/nx,x1=-49+(i+1)*98/nx,y0=-27+j*54/ny,y1=-27+(j+1)*54/ny;
     const p=[[x0,y0,roof(x0,y0)],[x1,y0,roof(x1,y0)],[x1,y1,roof(x1,y1)],[x0,y1,roof(x0,y1)]];
-    const nrm=norm(0,0,1),a=p.map(v=>add(...v,nrm,(i+j)%4===0?color.ice:color.ivory));quad(...a);
+    const a=p.map(v=>add(...v,norm(-(roof(v[0]+.1,v[1])-roof(v[0]-.1,v[1]))/.2,-(roof(v[0],v[1]+.1)-roof(v[0],v[1]-.1))/.2,1),(i+j)%7===0?color.ice:color.ivory));quad(...a);
    }
    for(let j=0;j<=8;j++){
     const y=-27+j*54/8;

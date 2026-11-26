@@ -10,7 +10,7 @@ const doc={readyState:'loading',addEventListener(){},querySelector:()=>null,getE
 const win={initMap(){},addEventListener(){},WorldscopeV23:{}};
 vm.runInNewContext(source,{window:win,document:doc,map:fakeMap,maplibregl:{MercatorCoordinate:{}},items,console,setTimeout,clearTimeout,requestAnimationFrame:()=>1,cancelAnimationFrame(){}},{filename:'worldscope-v25-rides.js'});
 const api=win.WorldscopeRideAtlas25,all=api.refreshCatalog();
-assert.equal(all.length,items.length,'every directory ride and shop gets a concept model');assert.ok(all.filter(x=>x.mapped).length>=23);
+assert.equal(all.length,items.length+1,'every directory ride and shop gets a concept model');assert.ok(all.filter(x=>x.mapped).length>=23);
 assert.ok(all.filter(x=>x.mapped&&!x.duplicate).length>=19,'additional map models do not duplicate established landmark models');
 const types=new Set();let totalTriangles=0;
 for(const r of all){const mesh=api.buildRide(r.type,r.id+':'+r.name);types.add(r.type);
