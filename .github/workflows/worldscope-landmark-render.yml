@@ -1,0 +1,53 @@
+name: Worldscope landmark render checks
+on:
+  push:
+    branches: [development]
+    paths: ['.github/workflows/worldscope-landmark-render.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Render detailed castle and named rides in actual gallery
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
+          from functools import partial
+          from threading import Thread
+          from playwright.sync_api import sync_playwright
+          root=Path.cwd(); out=root/'model-screenshots';out.mkdir(exist_ok=True)
+          server=ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,directory=str(root)))
+          Thread(target=server.serve_forever,daemon=True).start();url=f'http://127.0.0.1:{server.server_port}'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader','--use-gl=angle'])
+            for width,height in [(390,844),(1280,720)]:
+              page=browser.new_page(viewport={'width':width,'height':height})
+              page.route('**/*',lambda r:r.continue_() if r.request.url.startswith(url) else r.abort())
+              page.goto(url+'/index.html',wait_until='domcontentloaded')
+              page.wait_for_function('window.WorldscopeRideAtlas25?.catalog.length>90')
+              page.evaluate("""()=>{document.getElementById('overview').classList.add('hidden');document.getElementById('map').classList.remove('hidden');WorldscopeRideAtlas25.openStudio()}""")
+              for name in ['Cinderella Castle','Space Mountain','TRON Lightcycle / Run','Haunted Mansion','Expedition Everest','Millennium Falcon: Smugglers Run']:
+                identifier=page.evaluate('name=>WorldscopeRideAtlas25.catalog.find(r=>r.name===name).id',name)
+                page.locator('#ws25-ride-choice').select_option(identifier)
+                page.wait_for_function("""()=>{const c=document.getElementById('ws25-ride-canvas'),g=c.getContext('webgl');if(!g||c.width<100||c.height<100)return false;let a=new Uint8Array(c.width*c.height*4);g.readPixels(0,0,c.width,c.height,g.RGBA,g.UNSIGNED_BYTE,a);const colors=new Set();for(let i=0;i<a.length;i+=32)colors.add(a[i]+','+a[i+1]+','+a[i+2]);return colors.size>15}""",timeout=15000)
+                page.locator('#ws25-ride-canvas').screenshot(path=str(out/(name.split(':')[0].replace('/','-').replace(' ','-')+f'-{width}.png')))
+                print('PASS rendered',name,width,height,flush=True)
+              page.evaluate('WorldscopeRideAtlas25.closeStudio()');page.close()
+            browser.close()
+          server.shutdown()
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: landmark-render-screenshots
+          path: model-screenshots
